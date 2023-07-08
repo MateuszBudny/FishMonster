@@ -7,4 +7,5 @@ public enum Tags {
 	Player,
 	Respawn,
 	Untagged,
+	Water,
 }
