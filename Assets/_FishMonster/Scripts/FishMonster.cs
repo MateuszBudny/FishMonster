@@ -74,7 +74,7 @@ public class FishMonster : MonoBehaviour
     private void Move()
     {
         float movementMultiplier = isUnderWater ? 1f : movementMultiplierInAir;
-        rigid.AddForce(movement * movementMultiplier);
+        rigid.AddForce(movement * movementMultiplier, ForceMode.Acceleration);
         //Debug.Log(rigid.velocity);
     }
 
@@ -101,6 +101,6 @@ public class FishMonster : MonoBehaviour
         rigid.drag = toUnderWater ? dragUnderWater : dragInAir;
         rigid.angularDrag = toUnderWater ? angularDragUnderWater : angularDragInAir;
         float constantForceY = toUnderWater ? gravityUnderWater : gravityInAir;
-        constantForceComp.force = new Vector3(0f, constantForceY, 0f);
+        constantForceComp.force = new Vector3(0f, constantForceY * rigid.mass, 0f);
     }
 }

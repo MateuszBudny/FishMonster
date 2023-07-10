@@ -783,14 +783,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0286d7bb35ae134dbe8ea2b57e2e94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startedMovementMultiplier: 12000
-  stayingMovementMultiplier: 1500
+  startedMovementMultiplier: 120
+  stayingMovementMultiplier: 15
   dragUnderWater: 3
   angularDragUnderWater: 1.5
-  gravityUnderWater: -50
+  gravityUnderWater: -0.5
   dragInAir: 0.5
   angularDragInAir: 0.1
-  gravityInAir: -500
+  gravityInAir: -5
   movementMultiplierInAir: 0.1
 --- !u!114 &943715306
 MonoBehaviour:
