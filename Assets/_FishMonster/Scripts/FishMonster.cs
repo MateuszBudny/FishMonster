@@ -39,7 +39,7 @@ public class FishMonster : MonoBehaviour
 
     private Rigidbody rigid;
     private ConstantForce constantForceComp;
-    private Vector2 movement;
+    private Vector3 movement;
     private bool isUnderWater = true;
 
     private void Awake()
@@ -82,16 +82,16 @@ public class FishMonster : MonoBehaviour
     {
         if (context.started)
         {
-            movement = context.ReadValue<Vector2>() * startedMovementMultiplier;
+            movement = TransposeInputValuesToMovement(context.ReadValue<Vector2>() * startedMovementMultiplier);
             Move();
         }
         else if(context.performed)
         {
-            movement = context.ReadValue<Vector2>() * stayingMovementMultiplier;
+            movement = TransposeInputValuesToMovement(context.ReadValue<Vector2>() * stayingMovementMultiplier);
         }
         else if(context.canceled)
         {
-            movement = Vector2.zero;
+            movement = Vector3.zero;
         }
     }
 
@@ -103,4 +103,6 @@ public class FishMonster : MonoBehaviour
         float constantForceY = toUnderWater ? gravityUnderWater : gravityInAir;
         constantForceComp.force = new Vector3(0f, constantForceY * rigid.mass, 0f);
     }
+
+    private Vector3 TransposeInputValuesToMovement(Vector2 inputValues) => new Vector3(0f, inputValues.y, inputValues.x);
 }
