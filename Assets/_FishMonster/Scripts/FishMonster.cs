@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,14 +38,16 @@ public class FishMonster : MonoBehaviour
     [SerializeField]
     private float movementMultiplierInAir = 0.3f;
 
-    private Rigidbody rigid;
+    public Rigidbody Rigid { get; private set; }
+
     private ConstantForce constantForceComp;
     private Vector3 movement;
     private bool isUnderWater = true;
+    private IInteractable readyForInteraction;
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
+        Rigid = GetComponent<Rigidbody>();
         constantForceComp = GetComponent<ConstantForce>();
 
         ChangeEnvironment(true);
@@ -54,12 +57,30 @@ public class FishMonster : MonoBehaviour
     {
         Move();
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag(Tags.Interactable.ToString()))
+        {
+            readyForInteraction = collision.collider.GetComponent<IInteractable>();
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag(Tags.Water.ToString()))
         {
             ChangeEnvironment(true);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.collider.CompareTag(Tags.Interactable.ToString()))
+        {
+            if(readyForInteraction == collision.collider.GetComponent<IInteractable>())
+            {
+                readyForInteraction = null;
+            }
         }
     }
 
@@ -74,7 +95,7 @@ public class FishMonster : MonoBehaviour
     private void Move()
     {
         float movementMultiplier = isUnderWater ? 1f : movementMultiplierInAir;
-        rigid.AddForce(movement * movementMultiplier, ForceMode.Acceleration);
+        Rigid.AddForce(movement * movementMultiplier, ForceMode.Acceleration);
         //Debug.Log(rigid.velocity);
     }
 
@@ -95,13 +116,24 @@ public class FishMonster : MonoBehaviour
         }
     }
 
+    public void OnInteract(CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if(readyForInteraction != null)
+            {
+                readyForInteraction.Interact(this);
+            }
+        }
+    }
+
     private void ChangeEnvironment(bool toUnderWater)
     {
         isUnderWater = toUnderWater;
-        rigid.drag = toUnderWater ? dragUnderWater : dragInAir;
-        rigid.angularDrag = toUnderWater ? angularDragUnderWater : angularDragInAir;
+        Rigid.drag = toUnderWater ? dragUnderWater : dragInAir;
+        Rigid.angularDrag = toUnderWater ? angularDragUnderWater : angularDragInAir;
         float constantForceY = toUnderWater ? gravityUnderWater : gravityInAir;
-        constantForceComp.force = new Vector3(0f, constantForceY * rigid.mass, 0f);
+        constantForceComp.force = new Vector3(0f, constantForceY * Rigid.mass, 0f);
     }
 
     private Vector3 TransposeInputValuesToMovement(Vector2 inputValues) => new Vector3(0f, inputValues.y, inputValues.x);

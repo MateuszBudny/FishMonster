@@ -2,7 +2,9 @@
 public enum Tags {
 	EditorOnly,
 	Finish,
+	FishMonster,
 	GameController,
+	Interactable,
 	MainCamera,
 	Player,
 	Respawn,

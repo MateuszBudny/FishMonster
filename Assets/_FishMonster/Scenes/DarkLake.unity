@@ -309,7 +309,6 @@ GameObject:
   - component: {fileID: 241145672}
   - component: {fileID: 241145671}
   - component: {fileID: 241145669}
-  - component: {fileID: 241145670}
   - component: {fileID: 241145675}
   m_Layer: 0
   m_Name: Rod (6)
@@ -345,30 +344,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!145 &241145670
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241145668}
-  m_ConnectedBody: {fileID: 755941653}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!65 &241145671
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -521,7 +496,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -860,7 +835,6 @@ GameObject:
   - component: {fileID: 755941656}
   - component: {fileID: 755941655}
   - component: {fileID: 755941653}
-  - component: {fileID: 755941654}
   - component: {fileID: 755941659}
   m_Layer: 0
   m_Name: Rod (5)
@@ -896,30 +870,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!145 &755941654
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755941652}
-  m_ConnectedBody: {fileID: 811097672}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!65 &755941655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1072,7 +1022,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -1121,7 +1071,6 @@ GameObject:
   - component: {fileID: 811097674}
   - component: {fileID: 811097673}
   - component: {fileID: 811097672}
-  - component: {fileID: 811097671}
   - component: {fileID: 811097676}
   m_Layer: 0
   m_Name: Rod (4)
@@ -1145,30 +1094,6 @@ Transform:
   m_Father: {fileID: 1800732369}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!145 &811097671
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811097669}
-  m_ConnectedBody: {fileID: 1422501515}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!54 &811097672
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1333,7 +1258,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -1436,7 +1361,7 @@ GameObject:
   - component: {fileID: 943715307}
   m_Layer: 0
   m_Name: FishMonster
-  m_TagString: Untagged
+  m_TagString: FishMonster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1617,6 +1542,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e649c7e1-3176-405f-a548-e197546162d8
     m_ActionName: ControlUnderWater/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 943715305}
+        m_TargetAssemblyTypeName: FishMonster, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bdf6da31-8439-4e65-ab07-145a4b44bad5
+    m_ActionName: ControlUnderWater/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ControlUnderWater
@@ -1647,7 +1588,6 @@ GameObject:
   - component: {fileID: 1312387636}
   - component: {fileID: 1312387635}
   - component: {fileID: 1312387634}
-  - component: {fileID: 1312387633}
   - component: {fileID: 1312387638}
   m_Layer: 0
   m_Name: Rod (1)
@@ -1671,30 +1611,6 @@ Transform:
   m_Father: {fileID: 1800732369}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!145 &1312387633
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312387631}
-  m_ConnectedBody: {fileID: 1695967895}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!54 &1312387634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1859,7 +1775,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -1895,6 +1811,82 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &1347389300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347389301}
+  - component: {fileID: 1347389304}
+  - component: {fileID: 1347389303}
+  - component: {fileID: 1347389302}
+  m_Layer: 0
+  m_Name: DrownedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347389301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347389300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.465, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2133652997}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347389302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347389300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boat: {fileID: 1800732370}
+--- !u!65 &1347389303
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347389300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1347389304
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347389300}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1387111812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,7 +1900,6 @@ GameObject:
   - component: {fileID: 1387111816}
   - component: {fileID: 1387111815}
   - component: {fileID: 1387111813}
-  - component: {fileID: 1387111814}
   - component: {fileID: 1387111819}
   m_Layer: 0
   m_Name: Rod (2)
@@ -1944,30 +1935,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!145 &1387111814
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387111812}
-  m_ConnectedBody: {fileID: 1312387634}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!65 &1387111815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2120,7 +2087,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -2169,7 +2136,6 @@ GameObject:
   - component: {fileID: 1422501518}
   - component: {fileID: 1422501517}
   - component: {fileID: 1422501515}
-  - component: {fileID: 1422501516}
   - component: {fileID: 1422501521}
   m_Layer: 0
   m_Name: Rod (3)
@@ -2205,30 +2171,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!145 &1422501516
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1422501514}
-  m_ConnectedBody: {fileID: 1387111813}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!65 &1422501517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2381,7 +2323,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -2494,8 +2436,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587109511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.43, y: -3.81, z: 7.96}
-  m_LocalScale: {x: 1, y: 13.900579, z: 54.62173}
+  m_LocalPosition: {x: 5.43, y: -12.415701, z: 7.96}
+  m_LocalScale: {x: 1, y: 39.01035, z: 54.62173}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2682,8 +2624,8 @@ ConfigurableJoint:
     damper: 0
   m_LinearLimit:
     limit: 1
-    bounciness: 0
-    contactDistance: 0
+    bounciness: 1
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -2722,7 +2664,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -2768,6 +2710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800732369}
   - component: {fileID: 1800732368}
+  - component: {fileID: 1800732370}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -2810,7 +2753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800732367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.92, y: 3.531, z: 7.764}
+  m_LocalPosition: {x: 5.92, y: 7.48, z: 7.764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2828,6 +2771,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1800732370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800732367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b133d83a8f1ea42b2193e423018587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2040927371
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,7 +2796,6 @@ GameObject:
   - component: {fileID: 2040927375}
   - component: {fileID: 2040927374}
   - component: {fileID: 2040927372}
-  - component: {fileID: 2040927373}
   - component: {fileID: 2040927378}
   m_Layer: 0
   m_Name: Rod (7)
@@ -2877,30 +2831,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!145 &2040927373
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040927371}
-  m_ConnectedBody: {fileID: 241145669}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!65 &2040927374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3053,7 +2983,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -3192,7 +3122,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2.528261}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1347389301}
   m_Father: {fileID: 1800732369}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3205,8 +3136,8 @@ Rigidbody:
   m_GameObject: {fileID: 2133652993}
   serializedVersion: 4
   m_Mass: 1000
-  m_Drag: 100
-  m_AngularDrag: 0.05
+  m_Drag: 15
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: -0.3, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3283,8 +3214,8 @@ ConfigurableJoint:
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 75
-    positionDamper: 0
+    positionSpring: 200
+    positionDamper: 0.1
     maximumForce: 3.4028233e+38
     useAcceleration: 1
   m_ZDrive:
@@ -3310,7 +3241,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 10
+    positionSpring: 30
     positionDamper: 0.1
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -3338,11 +3269,11 @@ GameObject:
   - component: {fileID: 2139855694}
   - component: {fileID: 2139855693}
   - component: {fileID: 2139855692}
-  - component: {fileID: 2139855691}
   - component: {fileID: 2139855696}
+  - component: {fileID: 2139855697}
   m_Layer: 0
-  m_Name: Rod (8)
-  m_TagString: Untagged
+  m_Name: Hook
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3362,30 +3293,6 @@ Transform:
   m_Father: {fileID: 1800732369}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!145 &2139855691
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139855689}
-  m_ConnectedBody: {fileID: 2040927372}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: -0.5, z: 0}
-  serializedVersion: 2
-  m_Spring: 1000
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!54 &2139855692
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3550,7 +3457,7 @@ ConfigurableJoint:
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 10000
     positionDamper: 10
     maximumForce: 3.4028233e+38
     useAcceleration: 1
@@ -3586,3 +3493,15 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2139855697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139855689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82b182dc6f3f784998f0754adf1edb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
