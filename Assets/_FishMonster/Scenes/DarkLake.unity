@@ -822,6 +822,115 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &629703287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629703288}
+  - component: {fileID: 629703291}
+  - component: {fileID: 629703290}
+  - component: {fileID: 629703289}
+  m_Layer: 0
+  m_Name: WaterContactPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &629703288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629703287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2133652997}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &629703289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629703287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerTagEnterRecords:
+  - tag: 9
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1800732370}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: TryToWaterDrift
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onTriggerTagExitRecords:
+  - tag: 9
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1800732370}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: TryToAirGlide
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!65 &629703290
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629703287}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &629703291
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629703287}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &755941652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1466,7 @@ GameObject:
   - component: {fileID: 943715300}
   - component: {fileID: 943715305}
   - component: {fileID: 943715304}
+  - component: {fileID: 943715308}
   - component: {fileID: 943715306}
   - component: {fileID: 943715307}
   m_Layer: 0
@@ -1493,13 +1603,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startedMovementMultiplier: 120
   stayingMovementMultiplier: 15
-  dragUnderWater: 3
-  angularDragUnderWater: 1.5
-  gravityUnderWater: -0.5
-  dragInAir: 0.5
-  angularDragInAir: 0.1
-  gravityInAir: -5
-  movementMultiplierInAir: 0.1
 --- !u!114 &943715306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,6 +1678,28 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &943715308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943715299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9044692904b3ff24aac79aee3a309ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterEnvParams:
+    drag: 3
+    angularDrag: 1.5
+    gravity: -0.5
+    movementMultiplier: 1
+  airEnvParams:
+    drag: 0.5
+    angularDrag: 0.1
+    gravity: -5
+    movementMultiplier: 0.1
 --- !u!1 &1312387631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,7 +1982,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boat: {fileID: 1800732370}
+  onTriggerTagEnterRecords:
+  - tag: 9
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1800732370}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: Drown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onTriggerTagExitRecords: []
 --- !u!65 &1347389303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2711,6 +2853,8 @@ GameObject:
   - component: {fileID: 1800732369}
   - component: {fileID: 1800732368}
   - component: {fileID: 1800732370}
+  - component: {fileID: 1800732372}
+  - component: {fileID: 1800732371}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -2726,9 +2870,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800732367}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_Mass: 1000
+  m_Drag: 1
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2741,9 +2885,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 2
   m_CollisionDetection: 0
 --- !u!4 &1800732369
 Transform:
@@ -2753,7 +2897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800732367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.92, y: 7.48, z: 7.764}
+  m_LocalPosition: {x: 5.92, y: 7.92, z: 7.764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2783,6 +2927,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b133d83a8f1ea42b2193e423018587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buoyancyTorqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 5.031155
+      outSlope: 5.031155
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99999917
+      value: 5.031151
+      inSlope: 5.031155
+      outSlope: 5.031155
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!75 &1800732371
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800732367}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &1800732372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800732367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29d8170addb82c46a3c0d47500c5697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterEnvParams:
+    drag: 20
+    angularDrag: 10
+    gravity: 3
+    movementMultiplier: 1
+  airEnvParams:
+    drag: 1
+    angularDrag: 0.1
+    gravity: -5
+    movementMultiplier: 1
+  drowningEnvParams:
+    drag: 10
+    angularDrag: 15
+    gravity: -5
+    movementMultiplier: 1
 --- !u!1 &2040927371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,7 +3239,7 @@ GameObject:
   - component: {fileID: 2133652995}
   - component: {fileID: 2133652994}
   - component: {fileID: 2133652998}
-  - component: {fileID: 2133653000}
+  - component: {fileID: 2133652999}
   m_Layer: 0
   m_Name: Fuselage
   m_TagString: Untagged
@@ -3124,6 +3331,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347389301}
+  - {fileID: 629703288}
   m_Father: {fileID: 1800732369}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3136,8 +3344,8 @@ Rigidbody:
   m_GameObject: {fileID: 2133652993}
   serializedVersion: 4
   m_Mass: 1000
-  m_Drag: 15
-  m_AngularDrag: 1
+  m_Drag: 1
+  m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: -0.3, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3149,13 +3357,13 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 0
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 2
   m_CollisionDetection: 0
---- !u!153 &2133653000
-ConfigurableJoint:
+--- !u!138 &2133652999
+FixedJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3163,93 +3371,6 @@ ConfigurableJoint:
   m_GameObject: {fileID: 2133652993}
   m_ConnectedBody: {fileID: 1800732368}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 3
-  m_SecondaryAxis: {x: 0, y: 0, z: 0}
-  m_XMotion: 1
-  m_YMotion: 1
-  m_ZMotion: 1
-  m_AngularXMotion: 1
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
-  m_LinearLimitSpring:
-    spring: 0
-    damper: 0
-  m_LinearLimit:
-    limit: 10000
-    bounciness: 0
-    contactDistance: 0
-  m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
-  m_LowAngularXLimit:
-    limit: -177
-    bounciness: 0
-    contactDistance: 0
-  m_HighAngularXLimit:
-    limit: 177
-    bounciness: 0
-    contactDistance: 0
-  m_AngularYZLimitSpring:
-    spring: 0
-    damper: 0
-  m_AngularYLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_AngularZLimit:
-    limit: 0
-    bounciness: 0
-    contactDistance: 0
-  m_TargetPosition: {x: 0, y: 0, z: 0}
-  m_TargetVelocity: {x: 0, y: 0, z: 0}
-  m_XDrive:
-    serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-    useAcceleration: 0
-  m_YDrive:
-    serializedVersion: 4
-    positionSpring: 200
-    positionDamper: 0.1
-    maximumForce: 3.4028233e+38
-    useAcceleration: 1
-  m_ZDrive:
-    serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-    useAcceleration: 0
-  m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 1
-  m_AngularXDrive:
-    serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-    useAcceleration: 0
-  m_AngularYZDrive:
-    serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.4028233e+38
-    useAcceleration: 0
-  m_SlerpDrive:
-    serializedVersion: 4
-    positionSpring: 30
-    positionDamper: 0.1
-    maximumForce: 3.4028233e+38
-    useAcceleration: 1
-  m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
-  m_ConfiguredInWorldSpace: 0
-  m_SwapBodies: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 1
