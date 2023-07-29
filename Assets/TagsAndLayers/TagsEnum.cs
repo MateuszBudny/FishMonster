@@ -6,6 +6,8 @@ public enum Tags {
 	GameController,
 	Interactable,
 	MainCamera,
+	NpcHuman,
+	NpcHumanToGather,
 	Player,
 	Respawn,
 	Untagged,

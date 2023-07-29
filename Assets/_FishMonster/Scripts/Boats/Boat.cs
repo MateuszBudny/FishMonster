@@ -15,6 +15,8 @@ public class Boat : MonoBehaviour
     private Rigidbody rigid;
     private ThreeEnvironmentsPhysicsHandler envPhysicsHandler;
     private ConstantForce constForce;
+    private int startingCrewNum;
+    private int currentCrewNum;
 
     private void Awake()
     {
@@ -43,6 +45,8 @@ public class Boat : MonoBehaviour
     {
         rigid.mass = boatSO.rootMassMinMax.RandomRangeMinMax();
         fuselageGO.GetComponent<Rigidbody>().mass = boatSO.fuselageMassMinMax.RandomRangeMinMax();
+        startingCrewNum = (int)boatSO.crewNumdMinMax.RandomRangeMinMax();
+        currentCrewNum = startingCrewNum;
     }
 
     public void TryToAirGlide()
