@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5696047579341732849}
   - component: {fileID: 8535633023064678902}
   m_Layer: 0
-  m_Name: Boat
+  m_Name: BasicBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b133d83a8f1ea42b2193e423018587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingParams: {fileID: 11400000, guid: c2c7620a0b95bc340be0a940ea287775, type: 2}
+  fuselageGO: {fileID: 5578746952495847717}
   buoyancyTorqueCurve:
     serializedVersion: 2
     m_Curve:

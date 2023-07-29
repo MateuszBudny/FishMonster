@@ -17,25 +17,30 @@ public static class ExtensionMethods
         );
     }
 
+    public static Vector2 RotateAroundPivot(Vector2 point, Vector2 pivot, float angle)
+    {
+        return (point - pivot).Rotate(angle) + pivot;
+    }
+
+    public static float RandomRangeMinMax(this Vector2 minMax)
+    {
+        return UnityEngine.Random.Range(minMax.x, minMax.y);
+    }
+
     public static Vector3 RotateAroundPivot(this Vector3 point, Vector3 pivot, Vector3 angles)
     {
         return Quaternion.Euler(angles) * (point - pivot) + pivot;
     }
 
-    public static Vector2 RotateAroundPivot(Vector2 point, Vector2 pivot, float angle)
+    public static Vector3 RandomRange(this Vector3 minInclusive, Vector3 maxInclusive)
     {
-        return (point - pivot).Rotate(angle) + pivot;
+        return new Vector3(UnityEngine.Random.Range(minInclusive.x, maxInclusive.x), UnityEngine.Random.Range(minInclusive.y, maxInclusive.y), UnityEngine.Random.Range(minInclusive.z, maxInclusive.z));
     }
 
     public static T GetRandomElement<T>(this List<T> list)
     {
         int chosenElementIndex = UnityEngine.Random.Range(0, list.Count);
         return list[chosenElementIndex];
-    }
-
-    public static Vector3 RandomRange(this Vector3 minInclusive, Vector3 maxInclusive)
-    {
-        return new Vector3(UnityEngine.Random.Range(minInclusive.x, maxInclusive.x), UnityEngine.Random.Range(minInclusive.y, maxInclusive.y), UnityEngine.Random.Range(minInclusive.z, maxInclusive.z));
     }
 
     //public static void SafeDestroy(this GameObject gameObject)

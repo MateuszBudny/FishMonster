@@ -6,6 +6,10 @@ using UnityEngine;
 public class Boat : MonoBehaviour
 {
     [SerializeField]
+    private BoatSO startingParams;
+    [SerializeField]
+    private GameObject fuselageGO;
+    [SerializeField]
     private AnimationCurve buoyancyTorqueCurve;
 
     private Rigidbody rigid;
@@ -17,6 +21,8 @@ public class Boat : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         envPhysicsHandler = GetComponent<ThreeEnvironmentsPhysicsHandler>();
         constForce = GetComponent<ConstantForce>();
+
+        Init(startingParams);
     }
 
     private void Start()
@@ -31,6 +37,12 @@ public class Boat : MonoBehaviour
             float xRotationMinus180To180 = MathUtils.RecalculateAngleToBetweenMinus180And180(transform.rotation.eulerAngles.x);
             constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * -Mathf.Sign(xRotationMinus180To180), 0f, 0f);
         }
+    }
+
+    public void Init(BoatSO boatSO)
+    {
+        rigid.mass = boatSO.rootMassMinMax.RandomRangeMinMax();
+        fuselageGO.GetComponent<Rigidbody>().mass = boatSO.fuselageMassMinMax.RandomRangeMinMax();
     }
 
     public void TryToAirGlide()
