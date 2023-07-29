@@ -10,16 +10,17 @@ public class FishMonster : MonoBehaviour
 {
     [BoxGroup("Movement")]
     [SerializeField]
-    private float startedMovementMultiplier = 1f;
+    private float movementMultiplier = 1f;
     [BoxGroup("Movement")]
     [SerializeField]
-    private float stayingMovementMultiplier = 0.5f;
+    private float speedBoostMovementMultiplier = 0.5f;
 
     public Rigidbody Rigid { get; private set; }
     public bool IsUnderWater => envPhysicsHandler.IsCurrentEnvironmentWater;
 
     private TwoEnvironmentsPhysicsHandler envPhysicsHandler;
-    private Vector3 movement;
+    private Vector2 currentMovementRawInput;
+    private Vector3 currentMovement;
     private IInteractable readyForInteraction;
 
     private void Awake()
@@ -35,7 +36,7 @@ public class FishMonster : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        Move(currentMovement);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -73,25 +74,21 @@ public class FishMonster : MonoBehaviour
         }
     }
 
-    private void Move()
+    private void Move(Vector3 forceToAdd)
     {
-        Rigid.AddForce(movement * envPhysicsHandler.CurrentEnvParams.movementMultiplier, ForceMode.Acceleration);
+        Rigid.AddForce(forceToAdd * envPhysicsHandler.CurrentEnvParams.movementMultiplier, ForceMode.Acceleration);
     }
 
     public void OnMovement(CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
-            movement = TransposeInputValuesToMovement(context.ReadValue<Vector2>() * startedMovementMultiplier);
-            Move();
-        }
-        else if(context.performed)
-        {
-            movement = TransposeInputValuesToMovement(context.ReadValue<Vector2>() * stayingMovementMultiplier);
+            currentMovementRawInput = context.ReadValue<Vector2>();
+            currentMovement = TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
         }
         else if(context.canceled)
         {
-            movement = Vector3.zero;
+            currentMovement = Vector3.zero;
         }
     }
 
@@ -103,6 +100,15 @@ public class FishMonster : MonoBehaviour
             {
                 readyForInteraction.Interact(this);
             }
+        }
+    }
+
+    public void OnSpeedBoost(CallbackContext context)
+    {
+        if(context.started)
+        {
+            Vector3 speedBoostMoveent = TransposeInputValuesToMovement(currentMovementRawInput * speedBoostMovementMultiplier);
+            Move(speedBoostMoveent);
         }
     }
 
