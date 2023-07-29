@@ -10,6 +10,7 @@ public class MobileCanvasHandler : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID
+        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
         mobileUI.SetActive(true);
 #else
         mobileUI.SetActive(false);
