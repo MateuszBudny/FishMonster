@@ -264,9 +264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnvParams:
-    drag: 3
-    angularDrag: 1
-    gravity: -3
+    drag: 20
+    angularDrag: 5
+    gravity: -0.5
     movementMultiplier: 1
   airEnvParams:
     drag: 0.3
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -303,7 +303,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onTriggerTagExitRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:

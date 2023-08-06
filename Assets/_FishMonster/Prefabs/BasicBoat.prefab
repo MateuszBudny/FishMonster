@@ -373,11 +373,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 8888083813707088270}
+          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
+          m_MethodName: ChangeEnvironmentToWater
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onTriggerTagExitRecords:
+  - tag: 11
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8888083813707088270}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToAir
           m_Mode: 1
@@ -389,11 +406,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 9
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1 &4127730822264115913
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -487,7 +499,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onTriggerTagExitRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -579,7 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -1046,11 +1058,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 9
+  - tag: 11
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 3246425744126050709}
+          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
+          m_MethodName: ChangeEnvironmentToWater
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onTriggerTagExitRecords:
+  - tag: 11
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3246425744126050709}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToAir
           m_Mode: 1
@@ -1062,11 +1091,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 9
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1001 &444372181513690498
 PrefabInstance:
   m_ObjectHideFlags: 0
