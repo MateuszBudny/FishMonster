@@ -133,6 +133,7 @@ MonoBehaviour:
     angularDrag: 0.1
     gravity: -5
     movementMultiplier: 1
+  autoSetupOnTriggerTagComponentOnAwake: 0
   drowningEnvParams:
     drag: 10
     angularDrag: 15
@@ -282,7 +283,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 98
@@ -360,6 +361,7 @@ MonoBehaviour:
     angularDrag: 0.5
     gravity: -10
     movementMultiplier: 1
+  autoSetupOnTriggerTagComponentOnAwake: 0
 --- !u!114 &4038493358746310673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -892,7 +894,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1038,13 +1040,14 @@ MonoBehaviour:
   waterEnvParams:
     drag: 3
     angularDrag: 1
-    gravity: -3
+    gravity: -5
     movementMultiplier: 1
   airEnvParams:
     drag: 0.3
     angularDrag: 0.1
     gravity: -10
     movementMultiplier: 1
+  autoSetupOnTriggerTagComponentOnAwake: 0
 --- !u!114 &1061815011215094548
 MonoBehaviour:
   m_ObjectHideFlags: 0

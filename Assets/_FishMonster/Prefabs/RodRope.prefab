@@ -132,7 +132,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -266,13 +266,14 @@ MonoBehaviour:
   waterEnvParams:
     drag: 20
     angularDrag: 5
-    gravity: -0.5
+    gravity: -3
     movementMultiplier: 1
   airEnvParams:
     drag: 0.3
     angularDrag: 0.1
     gravity: -10
     movementMultiplier: 1
+  autoSetupOnTriggerTagComponentOnAwake: 0
 --- !u!114 &707786367056207728
 MonoBehaviour:
   m_ObjectHideFlags: 0

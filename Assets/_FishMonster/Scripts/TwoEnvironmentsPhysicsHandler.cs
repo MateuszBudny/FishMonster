@@ -9,6 +9,8 @@ public class TwoEnvironmentsPhysicsHandler : MonoBehaviour
     private EnvironmentParams waterEnvParams;
     [SerializeField]
     private EnvironmentParams airEnvParams;
+    [SerializeField]
+    private bool autoSetupOnTriggerTagComponentOnAwake = true;
 
     public EnvironmentParams CurrentEnvParams { get; protected set; }
     public bool IsCurrentEnvironmentWater => CurrentEnvParams == waterEnvParams;
@@ -21,6 +23,18 @@ public class TwoEnvironmentsPhysicsHandler : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         constForceComp = GetComponent<ConstantForce>();
+
+        if(autoSetupOnTriggerTagComponentOnAwake)
+        {
+            OnTriggerTagCollisions newOnTriggerTagComponent = gameObject.AddComponent<OnTriggerTagCollisions>();
+            newOnTriggerTagComponent.OnTriggerTagEnterRecords.Add(new OnTriggerTagCollisions.OnTriggerTagCollisionsRecord(Tags.Water, ChangeEnvironmentToWater));
+            newOnTriggerTagComponent.OnTriggerTagExitRecords.Add(new OnTriggerTagCollisions.OnTriggerTagCollisionsRecord(Tags.Water, ChangeEnvironmentToAir));
+        }
+    }
+
+    private void Start()
+    {
+        ChangeEnvironmentToAir();
     }
 
     public void ChangeEnvironmentToWater()

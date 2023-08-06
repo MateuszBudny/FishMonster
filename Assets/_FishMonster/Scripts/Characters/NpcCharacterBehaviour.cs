@@ -14,11 +14,16 @@ public class NpcCharacterBehaviour : CharacterBehaviour
 
     public bool IsGatherable => State is DeadNpcCharacterState;
 
-    private void Awake()
+    protected void Awake()
     {
         State = new IdleNpcCharacterState(this);
         Controller = GetComponent<RagdollCharacterControllerExtension>();
         CollidersHandler = GetComponent<CollidersHandler>();
+    }
+
+    private void Start()
+    {
+        SetAsRagdoll();
     }
 
     private void Update()

@@ -7,13 +7,16 @@ using UnityEngine.Events;
 public class OnTriggerTagCollisions : MonoBehaviour
 {
     [SerializeField]
-    private List<OnTriggerTagCollisionsRecord> onTriggerTagEnterRecords;
+    private List<OnTriggerTagCollisionsRecord> onTriggerTagEnterRecords = new List<OnTriggerTagCollisionsRecord>();
     [SerializeField]
-    private List<OnTriggerTagCollisionsRecord> onTriggerTagExitRecords;
+    private List<OnTriggerTagCollisionsRecord> onTriggerTagExitRecords = new List<OnTriggerTagCollisionsRecord>();
+
+    public List<OnTriggerTagCollisionsRecord> OnTriggerTagEnterRecords { get => onTriggerTagEnterRecords; private set => onTriggerTagEnterRecords = value; }
+    public List<OnTriggerTagCollisionsRecord> OnTriggerTagExitRecords { get => onTriggerTagExitRecords; private set => onTriggerTagExitRecords = value; }
 
     private void OnTriggerEnter(Collider other)
     {
-        onTriggerTagEnterRecords.ForEach(record =>
+        OnTriggerTagEnterRecords.ForEach(record =>
         {
             if(other.CompareTag(record.tag.ToString()))
             {
@@ -24,7 +27,7 @@ public class OnTriggerTagCollisions : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        onTriggerTagExitRecords.ForEach(record =>
+        OnTriggerTagExitRecords.ForEach(record =>
         {
             if(other.CompareTag(record.tag.ToString()))
             {
@@ -34,9 +37,16 @@ public class OnTriggerTagCollisions : MonoBehaviour
     }
 
     [Serializable]
-    private class OnTriggerTagCollisionsRecord
+    public class OnTriggerTagCollisionsRecord
     {
         public Tags tag;
         public UnityEvent eventOnCollision;
+
+        public OnTriggerTagCollisionsRecord(Tags tag, Action onCollision) 
+        {
+            this.tag = tag;
+            eventOnCollision = new UnityEvent();
+            eventOnCollision.AddListener(() => onCollision());
+        }
     }
 }
