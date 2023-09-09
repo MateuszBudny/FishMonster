@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,10 +12,17 @@ public class Boat : MonoBehaviour
     private GameObject fuselageGO;
     [SerializeField]
     private AnimationCurve buoyancyTorqueCurve;
+    [Header("Crew")]
+    [SerializeField]
+    private int crewNum = 5;
+    [SerializeField]
+    [MinMaxSlider(0f, 2f)]
+    private Vector2 crewDroppingIntervalOnDrowning;
 
     private Rigidbody rigid;
     private ThreeEnvironmentsPhysicsHandler envPhysicsHandler;
     private ConstantForce constForce;
+    private InstantiateWithForce dropCrewMember;
     private int startingCrewNum;
     private int currentCrewNum;
 
@@ -23,6 +31,7 @@ public class Boat : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         envPhysicsHandler = GetComponent<ThreeEnvironmentsPhysicsHandler>();
         constForce = GetComponent<ConstantForce>();
+        dropCrewMember = GetComponent<InstantiateWithForce>();
 
         Init(startingParams);
     }
@@ -67,14 +76,34 @@ public class Boat : MonoBehaviour
         envPhysicsHandler.ChangeEnvironmentToWater();
     }
 
+    public void FishMonsterCollidedStrongly()
+    {
+        if(crewNum > 0)
+        {
+            dropCrewMember.InstantiateAndAddForce();
+            crewNum--;
+        }
+    }
+
     public void Drown()
     {
         envPhysicsHandler.ChangeEnvironmentToDrowning();
         ResetTorque();
+        StartCoroutine(DropAllCrewMembers());
     }
 
     private void ResetTorque()
     {
         constForce.torque = Vector3.zero;
+    }
+
+    private IEnumerator DropAllCrewMembers()
+    {
+        while(crewNum > 0)
+        {
+            dropCrewMember.InstantiateAndAddForce();
+            crewNum--;
+            yield return new WaitForSeconds(UnityEngine.Random.Range(crewDroppingIntervalOnDrowning.x, crewDroppingIntervalOnDrowning.y));
+        }
     }
 }

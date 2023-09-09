@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2220806687020150398}
   - component: {fileID: 5696047579341732849}
   - component: {fileID: 8535633023064678902}
+  - component: {fileID: 4342975874198795261}
   m_Layer: 0
   m_Name: BasicBoat
   m_TagString: Untagged
@@ -111,6 +112,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  crewNum: 5
+  crewDroppingIntervalOnDrowning: {x: 0.5, y: 1}
 --- !u!114 &5696047579341732849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +154,27 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &4342975874198795261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590672810349372899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c914367be242cd48ad0d9c1859c2431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToInstantiate: {fileID: 5001736940374171689, guid: 38d65aac2e2aab14f82b88d01ce0cc30,
+    type: 3}
+  instantiatePos: {fileID: 1426633792347478717}
+  instanceParent: {fileID: 0}
+  minForceOnInstantiate: {x: 0, y: 200, z: -400}
+  maxForceOnInstantiate: {x: 0, y: 500, z: 400}
+  applyRandomRotation: 1
+  axisToRandomRotate: {x: 0, y: 1, z: 0}
+  rotationRandomAngle: {x: 0, y: 360}
 --- !u!1 &3947759111608737009
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +541,37 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &4340251743430091315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426633792347478717}
+  m_Layer: 0
+  m_Name: SpawnCrewPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426633792347478717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4340251743430091315}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.79, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.3955288}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3636004564894406352}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4372832941267791807
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,8 +679,9 @@ GameObject:
   - component: {fileID: 6551126060412943366}
   - component: {fileID: 8567337962398039163}
   - component: {fileID: 3977800001921468550}
+  - component: {fileID: 7534575833818949125}
   m_Layer: 0
-  m_Name: Fuselage
+  m_Name: FuselageMainCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +701,7 @@ Transform:
   m_Children:
   - {fileID: 7804553346602044916}
   - {fileID: 1481885578271601797}
+  - {fileID: 1426633792347478717}
   m_Father: {fileID: 7278113508193286578}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -761,6 +818,39 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7534575833818949125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578746952495847717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39e9a20928a64e42bd263ff1ca1ad8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCollisionEnterRecords:
+  - tag: 2
+    minCollisionForce: 1500
+    useMassToCalculateForce: 1
+    useVelocityToCalculateForce: 1
+    onCollisionEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2220806687020150398}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: FishMonsterCollidedStrongly
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onCollisionExitRecords: []
 --- !u!1 &6713931320749948909
 GameObject:
   m_ObjectHideFlags: 0
