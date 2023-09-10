@@ -9,7 +9,7 @@ public class OnCollisionTagAndForce : MonoBehaviour
     [SerializeField]
     private List<OnCollisionTagAndForceRecord> onCollisionEnterRecords;
     [SerializeField]
-    [Tooltip("Collision force is not checked in on exit collisions (ofc).")]
+    [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
     private List<OnCollisionTagAndForceRecord> onCollisionExitRecords;
 
     private Rigidbody rigid;
@@ -46,7 +46,7 @@ public class OnCollisionTagAndForce : MonoBehaviour
 
                 if(collisionForce >= record.minCollisionForce)
                 {
-                    record.onCollisionEvent.Invoke();
+                    record.onCollisionEvent.Invoke(collision);
                 }
             }
         });
@@ -58,7 +58,7 @@ public class OnCollisionTagAndForce : MonoBehaviour
         {
             if(collision.gameObject.CompareTag(record.tag.ToString()))
             {
-                record.onCollisionEvent.Invoke();
+                record.onCollisionEvent.Invoke(collision);
             }
         });
     }
@@ -67,10 +67,10 @@ public class OnCollisionTagAndForce : MonoBehaviour
     public class OnCollisionTagAndForceRecord
     {
         public Tags tag;
-        [Tooltip("Collision force is not checked in on exit collisions (ofc).")]
+        [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
         public float minCollisionForce;
         public bool useMassToCalculateForce = true;
         public bool useVelocityToCalculateForce = true;
-        public UnityEvent onCollisionEvent;
+        public UnityEvent<Collision> onCollisionEvent;
     }
 }

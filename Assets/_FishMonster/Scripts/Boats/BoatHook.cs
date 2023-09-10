@@ -6,12 +6,14 @@ public class BoatHook : MonoBehaviour, IInteractable
 {
     private FixedJoint joint;
 
-    public void Interact(FishMonster fishMonster)
+    public bool JumpToThisInteractable => !joint;
+
+    public void Interact(IPlayer player)
     {
         if(!joint)
         {
             joint = gameObject.AddComponent<FixedJoint>();
-            joint.connectedBody = fishMonster.Rigid;
+            joint.connectedBody = (player as FishMonster).Rigid;
         }
         else
         {

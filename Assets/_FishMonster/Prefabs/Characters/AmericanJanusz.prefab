@@ -325,7 +325,7 @@ PrefabInstance:
     - target: {fileID: -4104944102669522568, guid: acc8c19f846e4004596d26d4ca7b45f0,
         type: 3}
       propertyPath: m_TagString
-      value: NpcHumanToGather
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: -3874675381651938121, guid: acc8c19f846e4004596d26d4ca7b45f0,
         type: 3}
@@ -801,6 +801,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3280044505448549331}
+    - targetCorrespondingSourceObject: {fileID: -4104944102669522568, guid: acc8c19f846e4004596d26d4ca7b45f0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3809907947033172745}
+    - targetCorrespondingSourceObject: {fileID: -4104944102669522568, guid: acc8c19f846e4004596d26d4ca7b45f0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6354840610702228282}
     - targetCorrespondingSourceObject: {fileID: 5657138015674168493, guid: acc8c19f846e4004596d26d4ca7b45f0,
         type: 3}
       insertIndex: -1
@@ -2081,6 +2089,49 @@ MonoBehaviour:
     gravity: -10
     movementMultiplier: 1
   autoSetupOnTriggerTagComponentOnAwake: 1
+--- !u!114 &3809907947033172745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427838907240708227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7bec3832c4f449bc5bd724375883f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpToThisInteractable: 1
+  onInteractEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6354840610702228282}
+        m_TargetAssemblyTypeName: DestroyTimer, LowkeyFramework
+        m_MethodName: StartDestroyerTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6354840610702228282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427838907240708227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6874c24a9aa47144993c0d38c11543a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: {fileID: 5001736940374171689}
+  destroyDelay: 0
+  startTimerOnStart: 0
 --- !u!1 &5729458749570556356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4888905663792820287, guid: acc8c19f846e4004596d26d4ca7b45f0,

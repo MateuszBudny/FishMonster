@@ -20,7 +20,7 @@ public class OnTriggerTagCollisions : MonoBehaviour
         {
             if(other.CompareTag(record.tag.ToString()))
             {
-                record.eventOnCollision.Invoke();
+                record.eventOnCollision.Invoke(other);
             }
         });
     }
@@ -31,7 +31,7 @@ public class OnTriggerTagCollisions : MonoBehaviour
         {
             if(other.CompareTag(record.tag.ToString()))
             {
-                record.eventOnCollision.Invoke();
+                record.eventOnCollision.Invoke(other);
             }
         });
     }
@@ -40,13 +40,13 @@ public class OnTriggerTagCollisions : MonoBehaviour
     public class OnTriggerTagCollisionsRecord
     {
         public Tags tag;
-        public UnityEvent eventOnCollision;
+        public UnityEvent<Collider> eventOnCollision;
 
-        public OnTriggerTagCollisionsRecord(Tags tag, Action onCollision) 
+        public OnTriggerTagCollisionsRecord(Tags tag, Action<Collider> onCollision) 
         {
             this.tag = tag;
-            eventOnCollision = new UnityEvent();
-            eventOnCollision.AddListener(() => onCollision());
+            eventOnCollision = new UnityEvent<Collider>();
+            eventOnCollision.AddListener(collider => onCollision(collider));
         }
     }
 }

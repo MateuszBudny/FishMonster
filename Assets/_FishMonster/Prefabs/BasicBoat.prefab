@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &121418480027302616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5501253706116373614}
+  m_Layer: 0
+  m_Name: RightSpawnCrewPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5501253706116373614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121418480027302616}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.79, z: 0.409}
+  m_LocalScale: {x: 1, y: 1, z: 0.3955288}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3636004564894406352}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &590672810349372899
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +144,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   crewNum: 5
-  crewDroppingIntervalOnDrowning: {x: 0.5, y: 1}
+  crewDroppingIntervalOnDrowning: {x: 0.15890855, y: 1}
 --- !u!114 &5696047579341732849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,10 +199,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToInstantiate: {fileID: 5001736940374171689, guid: 38d65aac2e2aab14f82b88d01ce0cc30,
     type: 3}
-  instantiatePos: {fileID: 1426633792347478717}
+  instantiatePosRange:
+  - {fileID: 1426633792347478717}
+  - {fileID: 5501253706116373614}
   instanceParent: {fileID: 0}
-  minForceOnInstantiate: {x: 0, y: 200, z: -400}
-  maxForceOnInstantiate: {x: 0, y: 500, z: 400}
+  minForceOnInstantiate: {x: 0, y: 200, z: -200}
+  maxForceOnInstantiate: {x: 0, y: 500, z: 200}
+  useLocalCoordinatesForForceAdding: 1
+  transformToUseLocalCoordinatesFrom: {fileID: 3636004564894406352}
   applyRandomRotation: 1
   axisToRandomRotate: {x: 0, y: 1, z: 0}
   rotationRandomAngle: {x: 0, y: 360}
@@ -406,7 +441,7 @@ MonoBehaviour:
         - m_Target: {fileID: 8888083813707088270}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToWater
-          m_Mode: 1
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -423,7 +458,7 @@ MonoBehaviour:
         - m_Target: {fileID: 8888083813707088270}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToAir
-          m_Mode: 1
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -551,7 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426633792347478717}
   m_Layer: 0
-  m_Name: SpawnCrewPos
+  m_Name: LeftSpawnCrewPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,7 +600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4340251743430091315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79, z: 0}
+  m_LocalPosition: {x: 0, y: 0.79, z: -0.274}
   m_LocalScale: {x: 1, y: 1, z: 0.3955288}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,6 +737,7 @@ Transform:
   - {fileID: 7804553346602044916}
   - {fileID: 1481885578271601797}
   - {fileID: 1426633792347478717}
+  - {fileID: 5501253706116373614}
   m_Father: {fileID: 7278113508193286578}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1158,7 +1194,7 @@ MonoBehaviour:
         - m_Target: {fileID: 3246425744126050709}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToWater
-          m_Mode: 1
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1175,7 +1211,7 @@ MonoBehaviour:
         - m_Target: {fileID: 3246425744126050709}
           m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
           m_MethodName: ChangeEnvironmentToAir
-          m_Mode: 1
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

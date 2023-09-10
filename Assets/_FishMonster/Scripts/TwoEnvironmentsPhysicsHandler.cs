@@ -37,13 +37,13 @@ public class TwoEnvironmentsPhysicsHandler : MonoBehaviour
         ChangeEnvironmentToAir();
     }
 
-    public void ChangeEnvironmentToWater()
+    public void ChangeEnvironmentToWater(Collider _ = null)
     {
         CurrentEnvParams = waterEnvParams;
         SetEnvironmentParamsFromCurrentEnvParams();
     }
 
-    public void ChangeEnvironmentToAir()
+    public void ChangeEnvironmentToAir(Collider _ = null)
     {
         CurrentEnvParams = airEnvParams;
         SetEnvironmentParamsFromCurrentEnvParams();

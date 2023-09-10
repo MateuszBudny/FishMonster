@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -6,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
-public class FishMonster : MonoBehaviour
+public class FishMonster : MonoBehaviour, IPlayer
 {
     [BoxGroup("Movement")]
     [SerializeField]
@@ -14,14 +15,27 @@ public class FishMonster : MonoBehaviour
     [BoxGroup("Movement")]
     [SerializeField]
     private float speedBoostMovementMultiplier = 0.5f;
+    [SerializeField]
+    private Collider interactionTrigger;
 
     public Rigidbody Rigid { get; private set; }
     public bool IsUnderWater => envPhysicsHandler.IsCurrentEnvironmentWater;
 
+    public bool BlockInput 
+    {
+        get => blockInput;
+        private set
+        {
+            blockInput = value;
+            ResetMovement();
+        }
+    }
+
     private TwoEnvironmentsPhysicsHandler envPhysicsHandler;
     private Vector2 currentMovementRawInput;
     private Vector3 currentMovement;
-    private IInteractable readyForInteraction;
+    private bool blockInput;
+    private bool noEatingAction;
 
     private void Awake()
     {
@@ -39,30 +53,11 @@ public class FishMonster : MonoBehaviour
         Move(currentMovement);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.collider.CompareTag(Tags.Interactable.ToString()))
-        {
-            readyForInteraction = collision.collider.GetComponent<IInteractable>();
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag(Tags.Water.ToString()))
         {
             ChangeEnvironment(true);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if(collision.collider.CompareTag(Tags.Interactable.ToString()))
-        {
-            if(readyForInteraction == collision.collider.GetComponent<IInteractable>())
-            {
-                readyForInteraction = null;
-            }
         }
     }
 
@@ -79,36 +74,63 @@ public class FishMonster : MonoBehaviour
         Rigid.AddForce(forceToAdd * envPhysicsHandler.CurrentEnvParams.movementMultiplier, ForceMode.Acceleration);
     }
 
+    public void InteractableCatched(Collider interactableCollider)
+    {
+        if(noEatingAction)
+            return;
+
+        IInteractable interactableComponent = interactableCollider.GetComponent<IInteractable>();
+        if(interactableComponent.JumpToThisInteractable)
+        {
+            noEatingAction = true;
+            BlockInput = true;
+            transform
+                .DOMove(interactableCollider.transform.position, 0.25f)
+                .SetEase(Ease.OutSine)
+                .OnComplete(() =>
+                {
+                    BlockInput = false;
+                    interactableComponent.Interact(this);
+                    noEatingAction = false;
+                });
+        }
+        else
+        {
+            interactableComponent.Interact(this);
+        }
+    }
+
     public void OnMovement(CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !BlockInput)
         {
             currentMovementRawInput = context.ReadValue<Vector2>();
             currentMovement = TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
         }
         else if(context.canceled)
         {
-            currentMovement = Vector3.zero;
+            ResetMovement();
         }
     }
 
     public void OnInteract(CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !BlockInput)
         {
-            if(readyForInteraction != null)
-            {
-                readyForInteraction.Interact(this);
-            }
+            interactionTrigger.gameObject.SetActive(true);
+        }
+        else if(context.canceled)
+        {
+            interactionTrigger.gameObject.SetActive(false);
         }
     }
 
     public void OnSpeedBoost(CallbackContext context)
     {
-        if(context.started)
+        if(context.started && !BlockInput)
         {
-            Vector3 speedBoostMoveent = TransposeInputValuesToMovement(currentMovementRawInput * speedBoostMovementMultiplier);
-            Move(speedBoostMoveent);
+            Vector3 speedBoostMovement = TransposeInputValuesToMovement(currentMovementRawInput * speedBoostMovementMultiplier);
+            Move(speedBoostMovement);
         }
     }
 
@@ -125,4 +147,10 @@ public class FishMonster : MonoBehaviour
     }
 
     private Vector3 TransposeInputValuesToMovement(Vector2 inputValues) => new Vector3(0f, inputValues.y, inputValues.x);
+
+    private void ResetMovement()
+    {
+        currentMovementRawInput = Vector2.zero;
+        currentMovement = Vector3.zero;
+    }
 }
