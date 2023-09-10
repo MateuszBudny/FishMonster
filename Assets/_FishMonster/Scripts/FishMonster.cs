@@ -127,7 +127,7 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     public void OnSpeedBoost(CallbackContext context)
     {
-        if(context.started && !BlockInput)
+        if(context.started && !BlockInput && envPhysicsHandler.IsCurrentEnvironmentWater)
         {
             Vector3 speedBoostMovement = TransposeInputValuesToMovement(currentMovementRawInput * speedBoostMovementMultiplier);
             Move(speedBoostMovement);

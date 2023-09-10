@@ -294,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 17.32, y: 3.55, z: 10.12}
+  m_LocalPosition: {x: 31, y: 3.55, z: 8.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -723,7 +723,7 @@ Transform:
   m_GameObject: {fileID: 943715299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.87, y: 0, z: 7.836}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 49867942}
@@ -769,8 +769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0286d7bb35ae134dbe8ea2b57e2e94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementMultiplier: 15
-  speedBoostMovementMultiplier: 120
+  movementMultiplier: 30
+  speedBoostMovementMultiplier: 250
   interactionTrigger: {fileID: 49867943}
 --- !u!114 &943715306
 MonoBehaviour:
@@ -881,9 +881,9 @@ MonoBehaviour:
     gravity: -0.5
     movementMultiplier: 1
   airEnvParams:
-    drag: 0.5
-    angularDrag: 0.1
-    gravity: -5
+    drag: 0.75
+    angularDrag: 0.2
+    gravity: -9
     movementMultiplier: 0.1
   autoSetupOnTriggerTagComponentOnAwake: 0
 --- !u!1 &1587109511
@@ -964,7 +964,7 @@ Transform:
   m_GameObject: {fileID: 1587109511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.43, y: -12.415701, z: 7.96}
-  m_LocalScale: {x: 1, y: 39.01035, z: 54.62173}
+  m_LocalScale: {x: 1, y: 39.01035, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1017,12 +1017,12 @@ PrefabInstance:
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.92
+      value: 7.86
       objectReference: {fileID: 0}
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.14
+      value: 22.73
       objectReference: {fileID: 0}
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}
@@ -1228,12 +1228,12 @@ PrefabInstance:
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.92
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.77
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 7278113508193286578, guid: 9a4d3ea514e57494bbbdf41a38448ecb,
         type: 3}

@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 590672810349372899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.92, y: 7.92, z: 2.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3636004564894406352}
@@ -86,7 +86,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590672810349372899}
   serializedVersion: 4
-  m_Mass: 1000
+  m_Mass: 10000
   m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -103,7 +103,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 2
+  m_Constraints: 98
   m_CollisionDetection: 0
 --- !u!114 &2220806687020150398
 MonoBehaviour:
@@ -119,31 +119,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingParams: {fileID: 11400000, guid: c2c7620a0b95bc340be0a940ea287775, type: 2}
   fuselageGO: {fileID: 5578746952495847717}
+  buoyancyTorqueMultiplier: 10
   buoyancyTorqueCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 5.031155
-      outSlope: 5.031155
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.99999917
-      value: 5.031151
-      inSlope: 5.031155
-      outSlope: 5.031155
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  crewNum: 5
   crewDroppingIntervalOnDrowning: {x: 0.15890855, y: 1}
 --- !u!114 &5696047579341732849
 MonoBehaviour:
@@ -158,13 +158,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnvParams:
-    drag: 20
-    angularDrag: 10
+    drag: 10
+    angularDrag: 40
     gravity: 3
     movementMultiplier: 1
   airEnvParams:
     drag: 1
-    angularDrag: 0.1
+    angularDrag: 30
     gravity: -5
     movementMultiplier: 1
   autoSetupOnTriggerTagComponentOnAwake: 0
@@ -345,7 +345,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 98
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!59 &1258101151398576810
 HingeJoint:
@@ -363,7 +363,7 @@ HingeJoint:
   serializedVersion: 2
   m_UseSpring: 1
   m_Spring:
-    spring: 1000
+    spring: 10000
     damper: 0.2
     targetPosition: 0
   m_UseMotor: 0
@@ -384,7 +384,7 @@ HingeJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
+  m_MassScale: 2
   m_ConnectedMassScale: 1
 --- !u!75 &8030495310278662153
 ConstantForce:
@@ -411,8 +411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnvParams:
-    drag: 10
-    angularDrag: 5
+    drag: 5
+    angularDrag: 35
     gravity: -3
     movementMultiplier: 1
   airEnvParams:
@@ -528,7 +528,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2262261792326209287
 MonoBehaviour:
@@ -715,6 +715,8 @@ GameObject:
   - component: {fileID: 8567337962398039163}
   - component: {fileID: 3977800001921468550}
   - component: {fileID: 7534575833818949125}
+  - component: {fileID: 5672136233154377297}
+  - component: {fileID: 1236964784306187212}
   m_Layer: 0
   m_Name: FuselageMainCollider
   m_TagString: Untagged
@@ -837,7 +839,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 2
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!138 &3977800001921468550
 FixedJoint:
@@ -887,6 +889,41 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onCollisionExitRecords: []
+--- !u!75 &5672136233154377297
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578746952495847717}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &1236964784306187212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578746952495847717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9044692904b3ff24aac79aee3a309ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterEnvParams:
+    drag: 10
+    angularDrag: 0.5
+    gravity: 0
+    movementMultiplier: 1
+  airEnvParams:
+    drag: 3
+    angularDrag: 0.1
+    gravity: 0
+    movementMultiplier: 1
+  autoSetupOnTriggerTagComponentOnAwake: 1
 --- !u!1 &6713931320749948909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1043,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6713931320749948909}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0.3
   m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1164,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnvParams:
-    drag: 3
+    drag: 2
     angularDrag: 1
     gravity: -5
     movementMultiplier: 1

@@ -6,17 +6,16 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] [Expandable]
     private BoatSO startingParams;
     [SerializeField]
     private GameObject fuselageGO;
     [SerializeField]
+    private float buoyancyTorqueMultiplier = 10000f;
+    [SerializeField]
     private AnimationCurve buoyancyTorqueCurve;
     [Header("Crew")]
-    [SerializeField]
-    private int crewNum = 5;
-    [SerializeField]
-    [MinMaxSlider(0f, 2f)]
+    [SerializeField] [MinMaxSlider(0f, 2f)]
     private Vector2 crewDroppingIntervalOnDrowning;
 
     private Rigidbody rigid;
@@ -46,7 +45,8 @@ public class Boat : MonoBehaviour
         if(envPhysicsHandler.IsCurrentEnvironmentWater)
         {
             float xRotationMinus180To180 = MathUtils.RecalculateAngleToBetweenMinus180And180(transform.rotation.eulerAngles.x);
-            constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * -Mathf.Sign(xRotationMinus180To180), 0f, 0f);
+            Debug.Log(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f));
+            constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * rigid.angularDrag * buoyancyTorqueMultiplier * -Mathf.Sign(xRotationMinus180To180), 0f, 0f);
         }
     }
 
@@ -54,7 +54,7 @@ public class Boat : MonoBehaviour
     {
         rigid.mass = boatSO.rootMassMinMax.RandomRangeMinMax();
         fuselageGO.GetComponent<Rigidbody>().mass = boatSO.fuselageMassMinMax.RandomRangeMinMax();
-        startingCrewNum = (int)boatSO.crewNumdMinMax.RandomRangeMinMax();
+        startingCrewNum = (int)boatSO.crewNumMinMax.RandomRangeMinMax();
         currentCrewNum = startingCrewNum;
     }
 
@@ -78,10 +78,10 @@ public class Boat : MonoBehaviour
 
     public void FishMonsterCollidedStrongly()
     {
-        if(crewNum > 0)
+        if(currentCrewNum > 0)
         {
             dropCrewMember.InstantiateAndAddForce();
-            crewNum--;
+            currentCrewNum--;
         }
     }
 
@@ -99,10 +99,10 @@ public class Boat : MonoBehaviour
 
     private IEnumerator DropAllCrewMembers()
     {
-        while(crewNum > 0)
+        while(currentCrewNum > 0)
         {
             dropCrewMember.InstantiateAndAddForce();
-            crewNum--;
+            currentCrewNum--;
             yield return new WaitForSeconds(UnityEngine.Random.Range(crewDroppingIntervalOnDrowning.x, crewDroppingIntervalOnDrowning.y));
         }
     }

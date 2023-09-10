@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnvParams:
-    drag: 20
-    angularDrag: 5
+    drag: 5
+    angularDrag: 3
     gravity: -3
     movementMultiplier: 1
   airEnvParams:

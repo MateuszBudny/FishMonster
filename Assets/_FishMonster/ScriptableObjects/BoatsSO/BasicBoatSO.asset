@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425162ed1444c6045ab81f1d4ddcdfdc, type: 3}
   m_Name: BasicBoatSO
   m_EditorClassIdentifier: 
-  rootMassMinMax: {x: 800, y: 1200}
+  rootMassMinMax: {x: 2000, y: 4000}
   fuselageMassMinMax: {x: 800, y: 1200}
   accelerationMinMax: {x: 80, y: 120}
   maxSpeedMinMax: {x: 80, y: 120}
+  crewNumMinMax: {x: 2, y: 10}
