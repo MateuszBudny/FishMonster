@@ -24,6 +24,7 @@ public class Boat : MonoBehaviour
     private InstantiateWithForce dropCrewMember;
     private int startingCrewNum;
     private int currentCrewNum;
+    private float maxSpeed;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Boat : MonoBehaviour
     private void Start()
     {
         TryToAirGlide();
+        constForce.force = new Vector3(constForce.force.x, constForce.force.y, maxSpeed);
     }
 
     private void FixedUpdate()
@@ -45,7 +47,6 @@ public class Boat : MonoBehaviour
         if(envPhysicsHandler.IsCurrentEnvironmentWater)
         {
             float xRotationMinus180To180 = MathUtils.RecalculateAngleToBetweenMinus180And180(transform.rotation.eulerAngles.x);
-            Debug.Log(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f));
             constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * rigid.angularDrag * buoyancyTorqueMultiplier * -Mathf.Sign(xRotationMinus180To180), 0f, 0f);
         }
     }
@@ -56,6 +57,7 @@ public class Boat : MonoBehaviour
         fuselageGO.GetComponent<Rigidbody>().mass = boatSO.fuselageMassMinMax.RandomRangeMinMax();
         startingCrewNum = (int)boatSO.crewNumMinMax.RandomRangeMinMax();
         currentCrewNum = startingCrewNum;
+        maxSpeed = boatSO.maxSpeedMinMax.RandomRangeMinMax() * rigid.mass;
     }
 
     public void TryToAirGlide()
@@ -83,6 +85,11 @@ public class Boat : MonoBehaviour
             dropCrewMember.InstantiateAndAddForce();
             currentCrewNum--;
         }
+    }
+
+    public void TurnOffEngines()
+    {
+        constForce.force = new Vector3(constForce.force.x, constForce.force.y, 0f);
     }
 
     public void Drown()

@@ -33,7 +33,6 @@ public class TagsLayersEnumBuilder : EditorWindow
 		var srcArr = UnityEditorInternal.InternalEditorUtility.tags;
 		var tags = new String[srcArr.Length];
 		Array.Copy(srcArr, tags, tags.Length);
-		Array.Sort(tags, StringComparer.InvariantCultureIgnoreCase);
 
 		for (int i = 0, n = tags.Length; i < n; ++i)
 		{

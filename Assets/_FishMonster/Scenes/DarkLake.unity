@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 4
+  - tag: 9
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:

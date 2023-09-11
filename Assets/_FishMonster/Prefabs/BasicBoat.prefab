@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5501253706116373614}
   m_Layer: 0
   m_Name: RightSpawnCrewPos
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4342975874198795261}
   m_Layer: 0
   m_Name: BasicBoat
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4038493358746310673}
   m_Layer: 0
   m_Name: Arm
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -451,7 +451,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onTriggerTagExitRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 2262261792326209287}
   m_Layer: 0
   m_Name: WaterContactPoint
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -560,7 +560,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onTriggerTagExitRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 1426633792347478717}
   m_Layer: 0
   m_Name: LeftSpawnCrewPos
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 3362884805538703310}
   m_Layer: 0
   m_Name: DrownedPoint
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -683,13 +683,97 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
           m_TargetAssemblyTypeName: Boat, Assembly-CSharp
           m_MethodName: Drown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  onTriggerTagExitRecords: []
+--- !u!1 &4910919564624754843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8520796314516177791}
+  - component: {fileID: 2671023308055227744}
+  - component: {fileID: 798679469130401610}
+  m_Layer: 0
+  m_Name: ObjectsFrontDetector
+  m_TagString: Boat
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8520796314516177791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910919564624754843}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3636004564894406352}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2671023308055227744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910919564624754843}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.53}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &798679469130401610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910919564624754843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerTagEnterRecords:
+  - tag: 11
+    eventOnCollision:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2220806687020150398}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: TurnOffEngines
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -719,7 +803,7 @@ GameObject:
   - component: {fileID: 1236964784306187212}
   m_Layer: 0
   m_Name: FuselageMainCollider
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -740,6 +824,7 @@ Transform:
   - {fileID: 1481885578271601797}
   - {fileID: 1426633792347478717}
   - {fileID: 5501253706116373614}
+  - {fileID: 8520796314516177791}
   m_Father: {fileID: 7278113508193286578}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -869,7 +954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCollisionEnterRecords:
-  - tag: 2
+  - tag: 8
     minCollisionForce: 1500
     useMassToCalculateForce: 1
     useVelocityToCalculateForce: 1
@@ -1224,7 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTriggerTagEnterRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:
@@ -1241,7 +1326,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   onTriggerTagExitRecords:
-  - tag: 11
+  - tag: 7
     eventOnCollision:
       m_PersistentCalls:
         m_Calls:

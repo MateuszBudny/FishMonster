@@ -15,5 +15,5 @@ MonoBehaviour:
   rootMassMinMax: {x: 2000, y: 4000}
   fuselageMassMinMax: {x: 800, y: 1200}
   accelerationMinMax: {x: 80, y: 120}
-  maxSpeedMinMax: {x: 80, y: 120}
+  maxSpeedMinMax: {x: 10, y: 15}
   crewNumMinMax: {x: 2, y: 10}

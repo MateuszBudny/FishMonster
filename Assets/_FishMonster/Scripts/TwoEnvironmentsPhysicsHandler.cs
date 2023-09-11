@@ -54,6 +54,6 @@ public class TwoEnvironmentsPhysicsHandler : MonoBehaviour
         rigid.drag = CurrentEnvParams.drag;
         rigid.angularDrag = CurrentEnvParams.angularDrag;
         float constantForceY = CurrentEnvParams.gravity;
-        constForceComp.force = new Vector3(0f, constantForceY * rigid.mass, 0f);
+        constForceComp.force = new Vector3(constForceComp.force.x, constantForceY * rigid.mass, constForceComp.force.z);
     }
 }
