@@ -209,7 +209,9 @@ MonoBehaviour:
   transformToUseLocalCoordinatesFrom: {fileID: 3636004564894406352}
   applyRandomRotation: 1
   axisToRandomRotate: {x: 0, y: 1, z: 0}
+  randomRotationType: 0
   rotationRandomAngle: {x: 0, y: 360}
+  angleValuesToDrawFrom: []
 --- !u!1 &3947759111608737009
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +715,7 @@ GameObject:
   - component: {fileID: 798679469130401610}
   m_Layer: 0
   m_Name: ObjectsFrontDetector
-  m_TagString: Boat
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

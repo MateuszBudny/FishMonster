@@ -26,8 +26,15 @@ public class InstantiateWithForce : MonoBehaviour
     private bool applyRandomRotation;
     [SerializeField] [ShowIf(nameof(applyRandomRotation))]
     private Vector3 axisToRandomRotate = Vector3.up;
-    [SerializeField] [ShowIf(nameof(applyRandomRotation))] [MinMaxSlider(0f, 360f)]
+    [SerializeField] [ShowIf(nameof(applyRandomRotation))]
+    private RandomRotationType randomRotationType = RandomRotationType.Range;
+    [SerializeField] [ShowIf(nameof(IsRandomRangeRotationType))] [MinMaxSlider(0f, 360f)]
     private Vector2 rotationRandomAngle;
+    [SerializeField] [ShowIf(nameof(IsRandomFromValuesRotationType))]
+    private List<float> angleValuesToDrawFrom;
+
+    private bool IsRandomRangeRotationType => applyRandomRotation && randomRotationType == RandomRotationType.Range;
+    private bool IsRandomFromValuesRotationType => applyRandomRotation && randomRotationType == RandomRotationType.FromValues;
 
     public void InstantiateAndAddForce()
     {
@@ -61,7 +68,17 @@ public class InstantiateWithForce : MonoBehaviour
         }
         if(applyRandomRotation)
         {
-            instantiatedGO.transform.RotateAround(instantiatedGO.transform.position, axisToRandomRotate, Random.Range(rotationRandomAngle.x, rotationRandomAngle.y));
+            float randomAngleToRotateBy = 0f;
+            if(IsRandomRangeRotationType)
+            {
+                randomAngleToRotateBy = Random.Range(rotationRandomAngle.x, rotationRandomAngle.y);
+            }
+            else if(IsRandomFromValuesRotationType)
+            {
+                randomAngleToRotateBy = angleValuesToDrawFrom.GetRandomElement();
+            }
+
+            instantiatedGO.transform.RotateAround(instantiatedGO.transform.position, axisToRandomRotate, randomAngleToRotateBy);
         }
         
         Vector3 forceOnInstantiate = minForceOnInstantiate.RandomRange(maxForceOnInstantiate);
@@ -79,5 +96,11 @@ public class InstantiateWithForce : MonoBehaviour
         }
 
         rigidbodyToAddForceTo.AddForce(forceOnInstantiate, ForceMode.Impulse);
+    }
+
+    private enum RandomRotationType
+    {
+        Range,
+        FromValues,
     }
 }

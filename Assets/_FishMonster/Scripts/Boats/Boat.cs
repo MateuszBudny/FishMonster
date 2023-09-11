@@ -39,7 +39,7 @@ public class Boat : MonoBehaviour
     private void Start()
     {
         TryToAirGlide();
-        constForce.force = new Vector3(constForce.force.x, constForce.force.y, maxSpeed);
+        constForce.relativeForce = new Vector3(constForce.relativeForce.x, constForce.relativeForce.y, maxSpeed);
     }
 
     private void FixedUpdate()
@@ -47,7 +47,8 @@ public class Boat : MonoBehaviour
         if(envPhysicsHandler.IsCurrentEnvironmentWater)
         {
             float xRotationMinus180To180 = MathUtils.RecalculateAngleToBetweenMinus180And180(transform.rotation.eulerAngles.x);
-            constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * rigid.angularDrag * buoyancyTorqueMultiplier * -Mathf.Sign(xRotationMinus180To180), 0f, 0f);
+            float isBoatYRotated = Mathf.Approximately(transform.rotation.eulerAngles.y, 0f) ? 1f : -1f;
+            constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * rigid.angularDrag * buoyancyTorqueMultiplier * -Mathf.Sign(xRotationMinus180To180) * isBoatYRotated, 0f, 0f);
         }
     }
 
@@ -89,13 +90,14 @@ public class Boat : MonoBehaviour
 
     public void TurnOffEngines()
     {
-        constForce.force = new Vector3(constForce.force.x, constForce.force.y, 0f);
+        constForce.relativeForce = new Vector3(constForce.relativeForce.x, constForce.relativeForce.y, 0f);
     }
 
     public void Drown()
     {
         envPhysicsHandler.ChangeEnvironmentToDrowning();
         ResetTorque();
+        TurnOffEngines();
         StartCoroutine(DropAllCrewMembers());
     }
 
