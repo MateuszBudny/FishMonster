@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Boat : MonoBehaviour
@@ -22,6 +23,7 @@ public class Boat : MonoBehaviour
     private ThreeEnvironmentsPhysicsHandler envPhysicsHandler;
     private ConstantForce constForce;
     private InstantiateWithForce dropCrewMember;
+    private bool isFrontOfTheBoatClear = true;
     private int startingCrewNum;
     private int currentCrewNum;
     private float maxSpeed;
@@ -60,6 +62,12 @@ public class Boat : MonoBehaviour
         currentCrewNum = startingCrewNum;
         maxSpeed = boatSO.maxSpeedMinMax.RandomRangeMinMax() * rigid.mass;
     }
+    
+    public void SetIsFrontOfTheBoatClear(bool isClear)
+    {
+        isFrontOfTheBoatClear = isClear;
+        AdjustEnginesStatus();
+    }
 
     public void TryToAirGlide()
     {
@@ -67,6 +75,7 @@ public class Boat : MonoBehaviour
             return;
 
         envPhysicsHandler.ChangeEnvironmentToAir();
+        AdjustEnginesStatus();
         ResetTorque();
     }
 
@@ -77,6 +86,7 @@ public class Boat : MonoBehaviour
             return;
 
         envPhysicsHandler.ChangeEnvironmentToWater();
+        AdjustEnginesStatus();
     }
 
     public void FishMonsterCollidedStrongly()
@@ -86,6 +96,11 @@ public class Boat : MonoBehaviour
             dropCrewMember.InstantiateAndAddForce();
             currentCrewNum--;
         }
+    }
+
+    public void TurnOnEngines()
+    {
+        constForce.relativeForce = new Vector3(constForce.relativeForce.x, constForce.relativeForce.y, maxSpeed);
     }
 
     public void TurnOffEngines()
@@ -99,6 +114,18 @@ public class Boat : MonoBehaviour
         ResetTorque();
         TurnOffEngines();
         StartCoroutine(DropAllCrewMembers());
+    }
+
+    private void AdjustEnginesStatus()
+    {
+        if(isFrontOfTheBoatClear && envPhysicsHandler.IsCurrentEnvironmentWater)
+        {
+            TurnOnEngines();
+        }
+        else
+        {
+            TurnOffEngines();
+        }
     }
 
     private void ResetTorque()

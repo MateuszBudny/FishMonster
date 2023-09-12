@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interval: 30
-  firstInvokeDelay: 30
+  firstInvokeDelay: 15
   eventToInvoke:
     m_PersistentCalls:
       m_Calls:

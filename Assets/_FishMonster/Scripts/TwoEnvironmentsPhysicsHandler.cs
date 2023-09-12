@@ -27,8 +27,7 @@ public class TwoEnvironmentsPhysicsHandler : MonoBehaviour
         if(autoSetupOnTriggerTagComponentOnAwake)
         {
             OnTriggerTagCollisions newOnTriggerTagComponent = gameObject.AddComponent<OnTriggerTagCollisions>();
-            newOnTriggerTagComponent.OnTriggerTagEnterRecords.Add(new OnTriggerTagCollisions.OnTriggerTagCollisionsRecord(Tags.Water, ChangeEnvironmentToWater));
-            newOnTriggerTagComponent.OnTriggerTagExitRecords.Add(new OnTriggerTagCollisions.OnTriggerTagCollisionsRecord(Tags.Water, ChangeEnvironmentToAir));
+            newOnTriggerTagComponent.OnTriggerTagRecords.Add(new OnTriggerTagCollisions.OnTriggerTagCollisionsRecord(Tags.Water, ChangeEnvironmentToWater, ChangeEnvironmentToAir));
         }
     }
 

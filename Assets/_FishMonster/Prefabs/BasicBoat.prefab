@@ -228,7 +228,6 @@ GameObject:
   - component: {fileID: 1258101151398576810}
   - component: {fileID: 8030495310278662153}
   - component: {fileID: 8888083813707088270}
-  - component: {fileID: 4038493358746310673}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Boat
@@ -422,53 +421,7 @@ MonoBehaviour:
     angularDrag: 0.5
     gravity: -10
     movementMultiplier: 1
-  autoSetupOnTriggerTagComponentOnAwake: 0
---- !u!114 &4038493358746310673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947759111608737009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8888083813707088270}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToWater
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8888083813707088270}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToAir
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  autoSetupOnTriggerTagComponentOnAwake: 1
 --- !u!1 &4127730822264115913
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,9 +497,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
+  onTriggerTagRecords:
   - tag: 7
-    eventOnCollision:
+    eventOnEveryCollisionEnter:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
@@ -561,9 +514,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 7
-    eventOnCollision:
+    eventOnEveryCollisionExit:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
@@ -578,6 +529,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    eventOnFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnLastCollisionExitedSoNoOtherCollisionIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    collidersInsideTriggerTag: []
 --- !u!1 &4340251743430091315
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,9 +642,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
+  onTriggerTagRecords:
   - tag: 7
-    eventOnCollision:
+    eventOnEveryCollisionEnter:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
@@ -701,7 +659,16 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onTriggerTagExitRecords: []
+    eventOnEveryCollisionExit:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnLastCollisionExitedSoNoOtherCollisionIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    collidersInsideTriggerTag: []
 --- !u!1 &4910919564624754843
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,15 +735,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
+  onTriggerTagRecords:
   - tag: 11
-    eventOnCollision:
+    eventOnEveryCollisionEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnEveryCollisionExit:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
           m_TargetAssemblyTypeName: Boat, Assembly-CSharp
-          m_MethodName: TurnOffEngines
-          m_Mode: 1
+          m_MethodName: SetIsFrontOfTheBoatClear
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -785,7 +758,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onTriggerTagExitRecords: []
+    eventOnLastCollisionExitedSoNoOtherCollisionIsCurrently:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2220806687020150398}
+          m_TargetAssemblyTypeName: Boat, Assembly-CSharp
+          m_MethodName: SetIsFrontOfTheBoatClear
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    collidersInsideTriggerTag: []
 --- !u!1 &5578746952495847717
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,12 +943,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39e9a20928a64e42bd263ff1ca1ad8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onCollisionEnterRecords:
+  onCollisionRecords:
   - tag: 8
-    minCollisionForce: 1500
-    useMassToCalculateForce: 1
-    useVelocityToCalculateForce: 1
-    onCollisionEvent:
+    eventOnEveryCollisionEnter:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2220806687020150398}
@@ -975,7 +960,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  onCollisionExitRecords: []
+    eventOnEveryCollisionExit:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnLastCollisionExitedSoNoOtherCollisionIsCurrently:
+      m_PersistentCalls:
+        m_Calls: []
+    collidersInsideTriggerTag: []
+    minCollisionForce: 30000
+    useMassToCalculateForce: 1
+    useVelocityToCalculateForce: 1
 --- !u!75 &5672136233154377297
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -1028,7 +1025,6 @@ GameObject:
   - component: {fileID: 8070508026597487956}
   - component: {fileID: 3724219032904794808}
   - component: {fileID: 3246425744126050709}
-  - component: {fileID: 1061815011215094548}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Interactable
@@ -1297,53 +1293,7 @@ MonoBehaviour:
     angularDrag: 0.1
     gravity: -10
     movementMultiplier: 1
-  autoSetupOnTriggerTagComponentOnAwake: 0
---- !u!114 &1061815011215094548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6713931320749948909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3246425744126050709}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToWater
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3246425744126050709}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToAir
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  autoSetupOnTriggerTagComponentOnAwake: 1
 --- !u!1001 &444372181513690498
 PrefabInstance:
   m_ObjectHideFlags: 0

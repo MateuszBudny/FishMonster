@@ -6,71 +6,56 @@ using UnityEngine.Events;
 
 public class OnCollisionTagAndForce : MonoBehaviour
 {
-    [SerializeField]
-    private List<OnCollisionTagAndForceRecord> onCollisionEnterRecords;
-    [SerializeField]
-    [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
-    private List<OnCollisionTagAndForceRecord> onCollisionExitRecords;
-
-    private Rigidbody rigid;
-
-    private void Awake()
-    {
-        rigid = GetComponent<Rigidbody>();
-    }
+    [SerializeField] [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
+    private List<OnCollisionTagAndForceRecord> onCollisionRecords;
 
     private void OnCollisionEnter(Collision collision)
     {
-        onCollisionEnterRecords.ForEach(record =>
-        {
-            if(collision.gameObject.CompareTag(record.tag.ToString()))
-            {
-                float collisionForce = 1f;
-                if(record.useMassToCalculateForce)
-                {
-                    collisionForce *= collision.rigidbody.mass;
-                }
-                if(record.useVelocityToCalculateForce)
-                {
-                    float velocityDiff;
-                    if(rigid)
-                    {
-                        velocityDiff = (collision.rigidbody.velocity - rigid.velocity).magnitude;
-                    }
-                    else
-                    {
-                        velocityDiff = collision.rigidbody.velocity.magnitude;
-                    }
-                    collisionForce *= velocityDiff;
-                }
-
-                if(collisionForce >= record.minCollisionForce)
-                {
-                    record.onCollisionEvent.Invoke(collision);
-                }
-            }
-        });
+        onCollisionRecords.ForEach(record => record.CollisionEntered(collision.collider, gameObject));
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        onCollisionExitRecords.ForEach(record =>
-        {
-            if(collision.gameObject.CompareTag(record.tag.ToString()))
-            {
-                record.onCollisionEvent.Invoke(collision);
-            }
-        });
+        onCollisionRecords.ForEach(record => record.CollisionExited(collision.collider, gameObject));
     }
 
     [Serializable]
-    public class OnCollisionTagAndForceRecord
+    public class OnCollisionTagAndForceRecord : OnTriggerTagCollisions.OnTriggerTagCollisionsRecord
     {
-        public Tags tag;
-        [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
-        public float minCollisionForce;
-        public bool useMassToCalculateForce = true;
-        public bool useVelocityToCalculateForce = true;
-        public UnityEvent<Collision> onCollisionEvent;
+        [SerializeField] [Tooltip("Collision force is not checked for on exit collisions (ofc).")]
+        private float minCollisionForce;
+        [SerializeField]
+        private bool useMassToCalculateForce = true;
+        [SerializeField]
+        private bool useVelocityToCalculateForce = true;
+
+        public OnCollisionTagAndForceRecord(Tags tag, Action<Collider> onEveryCollisionEnter = null, Action<Collider> onEveryCollisionExit = null, Action<Collider> onFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently = null, Action<Collider> onLastCollisionExitedSoNoOtherCollisionIsCurrently = null) : base(tag, onEveryCollisionEnter, onEveryCollisionExit, onFirstCollisionEnteredWhenNoOtherCollisionsIsCurrently, onLastCollisionExitedSoNoOtherCollisionIsCurrently)
+        {
+        }
+
+        protected override bool AdditionalConditionsForCollisionEnter(Collider collider, GameObject collisionInvoker)
+        {
+            Rigidbody collidedRigid = collider.GetComponent<Rigidbody>();
+            float collisionForce = 1f;
+            if(useMassToCalculateForce)
+            {
+                collisionForce *= collidedRigid.mass;
+            }
+            if(useVelocityToCalculateForce)
+            {
+                float velocityDiff;
+                if(collisionInvoker.TryGetComponent(out Rigidbody collisionInvokerRigid))
+                {
+                    velocityDiff = (collidedRigid.velocity - collisionInvokerRigid.velocity).sqrMagnitude;
+                }
+                else
+                {
+                    velocityDiff = collidedRigid.velocity.sqrMagnitude;
+                }
+                collisionForce *= velocityDiff;
+            }
+
+            return collisionForce >= minCollisionForce;
+        }
     }
 }

@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3333618367460789004}
   - component: {fileID: 764341128137786958}
   - component: {fileID: 5162217810247080366}
-  - component: {fileID: 707786367056207728}
   m_Layer: 0
   m_Name: RodRope
   m_TagString: Boat
@@ -273,50 +272,4 @@ MonoBehaviour:
     angularDrag: 0.1
     gravity: -10
     movementMultiplier: 1
-  autoSetupOnTriggerTagComponentOnAwake: 0
---- !u!114 &707786367056207728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1339724732810463722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7609f8a7e79f441972e65bb2568b82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTriggerTagEnterRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5162217810247080366}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToWater
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  onTriggerTagExitRecords:
-  - tag: 7
-    eventOnCollision:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5162217810247080366}
-          m_TargetAssemblyTypeName: TwoEnvironmentsPhysicsHandler, Assembly-CSharp
-          m_MethodName: ChangeEnvironmentToAir
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  autoSetupOnTriggerTagComponentOnAwake: 1
