@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852241658536594194}
+  - component: {fileID: 5178654791135984103}
   - component: {fileID: 2909888356410461891}
   - component: {fileID: 6267308930841490648}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,6 +34,33 @@ Transform:
   m_Father: {fileID: 3224701674345375908}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5178654791135984103
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822805076433104637}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &2909888356410461891
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -92,6 +120,7 @@ MonoBehaviour:
     eventOnLastCollisionExitedSoNoOtherCollisionIsCurrently:
       m_PersistentCalls:
         m_Calls: []
+    collidersInsideTriggerTag: []
 --- !u!1 &4827723078175911082
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +138,7 @@ GameObject:
   - component: {fileID: 1736917308954486948}
   - component: {fileID: 826699858952830680}
   - component: {fileID: 7622914168461577878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FishMonster
   m_TagString: FishMonster
   m_Icon: {fileID: 0}
@@ -226,7 +255,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4827723078175911082}
   serializedVersion: 4
-  m_Mass: 1000
+  m_Mass: 30
   m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
