@@ -1,3 +1,4 @@
+using AetherEvents;
 using Cinemachine;
 using DG.Tweening;
 using System;
@@ -22,7 +23,7 @@ public class PostProcessController : MonoBehaviour
 
     private Vignette vignette;
 
-    private void Start()
+    private void Awake()
     {
         volume.profile.TryGet(out vignette);
     }

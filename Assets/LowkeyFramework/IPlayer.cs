@@ -4,4 +4,6 @@ using UnityEngine;
 
 public interface IPlayer
 {
+    float CurrentHp { get => 0f; }
+    float StartingHp { get => 0f; }
 }

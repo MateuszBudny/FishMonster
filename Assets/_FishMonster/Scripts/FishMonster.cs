@@ -1,3 +1,4 @@
+using AetherEvents;
 using DG.Tweening;
 using NaughtyAttributes;
 using System;
@@ -5,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.InputSystem.InputAction;
 
 public class FishMonster : MonoBehaviour, IPlayer
@@ -17,9 +19,13 @@ public class FishMonster : MonoBehaviour, IPlayer
     private float speedBoostMovementMultiplier = 0.5f;
     [SerializeField]
     private Collider interactionTrigger;
+    [SerializeField]
+    private float startingHp = 100f;
 
     public Rigidbody Rigid { get; private set; }
     public bool IsUnderWater => envPhysicsHandler.IsCurrentEnvironmentWater;
+    public float CurrentHp { get; private set; }
+    public float StartingHp => startingHp;
 
     public bool BlockInput 
     {
@@ -41,6 +47,7 @@ public class FishMonster : MonoBehaviour, IPlayer
     {
         Rigid = GetComponent<Rigidbody>();
         envPhysicsHandler = GetComponent<TwoEnvironmentsPhysicsHandler>();
+        CurrentHp = startingHp;
     }
 
     private void Start()
@@ -134,6 +141,17 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
+    public void GetDamage(float damage)
+    {
+        CurrentHp -= damage;
+        if(CurrentHp < 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        new OnPlayerDamaged(damage, this).Invoke();
+    }
+
     private void ChangeEnvironment(bool toUnderWater)
     {
         if(toUnderWater)
@@ -153,4 +171,7 @@ public class FishMonster : MonoBehaviour, IPlayer
         currentMovementRawInput = Vector2.zero;
         currentMovement = Vector3.zero;
     }
+
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private void GetTest10Damage() => GetDamage(10f);
 }
