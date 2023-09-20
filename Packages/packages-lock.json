@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.github.roxtone.aether": {
+      "version": "https://github.com/Roxtone/Aether.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0f04267816db8a440af5f17ca23c9b0810aa4e8d"
+    },
     "com.unity.burst": {
       "version": "1.8.7",
       "depth": 1,
