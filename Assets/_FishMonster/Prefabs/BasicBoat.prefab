@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingParams: {fileID: 11400000, guid: c2c7620a0b95bc340be0a940ea287775, type: 2}
   fuselageGO: {fileID: 5578746952495847717}
+  boatHook: {fileID: 8070508026597487956}
   buoyancyTorqueMultiplier: 1000
   buoyancyTorqueCurve:
     serializedVersion: 2

@@ -42,6 +42,7 @@ public class FishMonster : MonoBehaviour, IPlayer
     private Vector3 currentMovement;
     private bool blockInput;
     private bool noEatingAction;
+    private BoatHook hookHookedOnCurrently;
 
     private void Awake()
     {
@@ -105,6 +106,18 @@ public class FishMonster : MonoBehaviour, IPlayer
         {
             interactableComponent.Interact(this);
         }
+
+        if(interactableComponent is BoatHook hook)
+        {
+            if(hook.JumpToThisInteractable)
+            {
+                hookHookedOnCurrently = hook;
+            }
+            else
+            {
+                hookHookedOnCurrently = null;
+            }
+        }
     }
 
     public void OnMovement(CallbackContext context)
@@ -138,10 +151,15 @@ public class FishMonster : MonoBehaviour, IPlayer
         {
             Vector3 speedBoostMovement = TransposeInputValuesToMovement(currentMovementRawInput * speedBoostMovementMultiplier);
             Move(speedBoostMovement);
+
+            if(hookHookedOnCurrently)
+            {
+                hookHookedOnCurrently.PlayerBoostImpulse();
+            }
         }
     }
 
-    public void GetDamage(float damage)
+    public void ReceiveDamage(float damage)
     {
         CurrentHp -= damage;
         if(CurrentHp < 0)
@@ -173,5 +191,5 @@ public class FishMonster : MonoBehaviour, IPlayer
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private void GetTest10Damage() => GetDamage(10f);
+    private void GetTest10Damage() => ReceiveDamage(10f);
 }

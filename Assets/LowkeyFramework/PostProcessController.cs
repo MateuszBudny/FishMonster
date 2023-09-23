@@ -22,6 +22,7 @@ public class PostProcessController : MonoBehaviour
     private CinemachineNoiseMovement vCamNoiseMovement;
 
     private Vignette vignette;
+    private Tween vignetteTween;
 
     private void Awake()
     {
@@ -37,8 +38,12 @@ public class PostProcessController : MonoBehaviour
 
     public void SetVignetteSmoothly(float endValue, float duration = -1f)
     {
-        duration = Mathf.Approximately(duration, -1f) ? vignetteDefaultChangeDuration : duration; 
-        DOTween.To(() => vignette.intensity.value, SetVignette, endValue, duration);
+        duration = Mathf.Approximately(duration, -1f) ? vignetteDefaultChangeDuration : duration;
+        if(vignetteTween.IsActive() && vignetteTween.IsPlaying())
+        {
+            vignetteTween.Kill();
+        }
+        vignetteTween = DOTween.To(() => vignette.intensity.value, SetVignette, endValue, duration);
     }
 
     public void SetVignette(float value)

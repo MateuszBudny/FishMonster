@@ -12,6 +12,8 @@ public class Boat : MonoBehaviour
     [SerializeField]
     private GameObject fuselageGO;
     [SerializeField]
+    private BoatHook boatHook;
+    [SerializeField]
     private float buoyancyTorqueMultiplier = 10000f;
     [SerializeField]
     private AnimationCurve buoyancyTorqueCurve;
@@ -23,6 +25,7 @@ public class Boat : MonoBehaviour
     private ThreeEnvironmentsPhysicsHandler envPhysicsHandler;
     private ConstantForce constForce;
     private InstantiateWithForce dropCrewMember;
+
     private bool isFrontOfTheBoatClear = true;
     private int startingCrewNum;
     private int currentCrewNum;
@@ -61,6 +64,11 @@ public class Boat : MonoBehaviour
         startingCrewNum = (int)boatSO.crewNumMinMax.RandomRangeMinMax();
         currentCrewNum = startingCrewNum;
         maxSpeed = boatSO.maxSpeedMinMax.RandomRangeMinMax() * rigid.mass;
+
+        boatHook.DamageOnHookStarted = boatSO.damageOnHookStarted.RandomRangeMinMax();
+        boatHook.DamageOnEveryTickWhileHooked = boatSO.damageOnEveryTickWhileHooked.RandomRangeMinMax();
+        boatHook.TickDuration = boatSO.tickDuration.RandomRangeMinMax();
+        boatHook.DamageOnPlayerBoostWhileHooked = boatSO.damageOnPlayerBoostWhileHooked.RandomRangeMinMax();
     }
     
     public void SetIsFrontOfTheBoatClear(bool isClear)

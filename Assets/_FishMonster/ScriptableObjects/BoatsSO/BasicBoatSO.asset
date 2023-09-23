@@ -17,3 +17,7 @@ MonoBehaviour:
   accelerationMinMax: {x: 80, y: 120}
   maxSpeedMinMax: {x: 10, y: 15}
   crewNumMinMax: {x: 2, y: 10}
+  damageOnHookStarted: {x: 3, y: 6}
+  damageOnEveryTickWhileHooked: {x: 0.5, y: 2}
+  tickDuration: {x: 0.8, y: 2}
+  damageOnPlayerBoostWhileHooked: {x: 3, y: 6}

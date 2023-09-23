@@ -6,4 +6,5 @@ public interface IPlayer
 {
     float CurrentHp { get => 0f; }
     float StartingHp { get => 0f; }
+    void ReceiveDamage(float damage) { }
 }
