@@ -27,6 +27,7 @@ public class Boat : MonoBehaviour
     private InstantiateWithForce dropCrewMember;
 
     private bool isFrontOfTheBoatClear = true;
+    private bool feelsEndangered;
     private int startingCrewNum;
     private int currentCrewNum;
     private float maxSpeed;
@@ -99,6 +100,7 @@ public class Boat : MonoBehaviour
 
     public void FishMonsterCollidedStrongly()
     {
+        feelsEndangered = true;
         if(currentCrewNum > 0)
         {
             dropCrewMember.InstantiateAndAddForce();
