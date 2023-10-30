@@ -47,7 +47,8 @@ public class FishMonster : MonoBehaviour, IPlayer
     private Vector2 currentMovementRawInput;
     private Vector3 currentMovement;
     private bool blockInput;
-    private bool noEatingAction;
+    private bool noEatingActionLeft;
+    private bool isMovingToPrey;
     private BoatHook hookHookedOnCurrently;
     private Camera mainCamera;
     private Vector3 currentRotationSpeed;
@@ -90,14 +91,15 @@ public class FishMonster : MonoBehaviour, IPlayer
     {
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if(new Vector2(forceToAdd.x, forceToAdd.z) != Vector2.zero)
+        if(new Vector2(forceToAdd.x, forceToAdd.z) != Vector2.zero || isMovingToPrey)
         {
             // normalise input direction
             Vector3 forceDirection = forceToAdd.normalized;
+            Debug.Log("atan2: " + Mathf.Atan2(forceDirection.z, forceDirection.x));
             Vector3 targetRotation = new Vector3(
-                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.x,
+                Mathf.Lerp(-mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.x, Mathf.InverseLerp(-1f, 1f, forceDirection.z)), 
                 Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y,
-                0f);
+                mainCamera.transform.eulerAngles.z);
 
             Vector3 rotation = new Vector3(
                 Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
@@ -114,13 +116,14 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     public void InteractableCatched(Collider interactableCollider)
     {
-        if(noEatingAction)
+        if(noEatingActionLeft)
             return;
 
         IInteractable interactableComponent = interactableCollider.GetComponent<IInteractable>();
         if(interactableComponent.JumpToThisInteractable)
         {
-            noEatingAction = true;
+            noEatingActionLeft = true;
+            isMovingToPrey = true;
             BlockInput = true;
             transform
                 .DOMove(interactableCollider.transform.position, 0.25f)
@@ -129,7 +132,8 @@ public class FishMonster : MonoBehaviour, IPlayer
                 {
                     BlockInput = false;
                     interactableComponent.Interact(this);
-                    noEatingAction = false;
+                    noEatingActionLeft = false;
+                    isMovingToPrey = false;
                 });
         }
         else

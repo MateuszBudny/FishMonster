@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 4827723078175911082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.87, y: 0, z: 7.836}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 852241658536594194}
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementMultiplier: 30
   speedBoostMovementMultiplier: 250
+  rotationSmoothTime: 0.3
   interactionTrigger: {fileID: 2909888356410461891}
   startingHp: 100
 --- !u!54 &838910251594565177

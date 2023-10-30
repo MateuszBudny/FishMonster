@@ -111,7 +111,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 0
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -192,3 +192,4 @@ MonoBehaviour:
   cameraAngleOverride: 0
   playerInput: {fileID: 0}
   keyboardMouseControlScheme: KeyboardMouse
+  updateType: 1

@@ -9,6 +9,12 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
+    private enum UpdateType
+    {
+        Update,
+        FixedUpdate,
+    }
+
     [SerializeField] [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     public GameObject cinemachineCameraTarget;
     [SerializeField]
@@ -23,17 +29,36 @@ public class ThirdPersonCamera : MonoBehaviour
     private PlayerInput playerInput;
     [SerializeField] [ShowIf(nameof(IsPlayerInputNotNull))] [Dropdown(nameof(ControlSchemesInCurrentInputAsset))]
     private string keyboardMouseControlScheme;
+    [SerializeField]
+    private UpdateType updateType = UpdateType.Update;
 
     private List<string> ControlSchemesInCurrentInputAsset => playerInput.actions.controlSchemes.Select(inputAsset => inputAsset.name).ToList();
     private bool IsPlayerInputNotNull => playerInput != null;
     private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == keyboardMouseControlScheme;
 
+    private Vector2 rawInput;
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
     private void Start()
     {
         cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+    }
+
+    private void FixedUpdate()
+    {
+        if(updateType != UpdateType.FixedUpdate)
+            return;
+
+        OnCorrectUpdate();
+    }
+
+    private void Update()
+    {
+        if(updateType != UpdateType.Update)
+            return;
+
+        OnCorrectUpdate();
     }
 
     private void LateUpdate()
@@ -49,7 +74,12 @@ public class ThirdPersonCamera : MonoBehaviour
 
     public void OnLook(CallbackContext context)
     {
-        CameraRotation(context.ReadValue<Vector2>());
+        rawInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnCorrectUpdate()
+    {
+        CameraRotation(rawInput);
     }
 
     private void CameraRotation(Vector2 lookInput)
