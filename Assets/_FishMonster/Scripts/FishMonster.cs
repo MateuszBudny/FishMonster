@@ -95,11 +95,10 @@ public class FishMonster : MonoBehaviour, IPlayer
         {
             // normalise input direction
             Vector3 forceDirection = forceToAdd.normalized;
-            Debug.Log("atan2: " + Mathf.Atan2(forceDirection.z, forceDirection.x));
             Vector3 targetRotation = new Vector3(
-                Mathf.Lerp(-mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.x, Mathf.InverseLerp(-1f, 1f, forceDirection.z)), 
-                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y,
-                mainCamera.transform.eulerAngles.z);
+                Mathf.Lerp(-MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), Mathf.InverseLerp(-1f, 1f, forceDirection.z)), // the more a player character is moving straight forward/backward, the more make the x rotation the same as of camera. smoothly decrease that dependence, when a player is going more to the left/right than straight forward/backward
+                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y, // keep y rotation the same as camera when going forward, but rotate y rotation if direction of moving is changing, so a player character is always facing moving direction
+                mainCamera.transform.eulerAngles.z); // keep z rotation the same as camera no matter what
 
             Vector3 rotation = new Vector3(
                 Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),

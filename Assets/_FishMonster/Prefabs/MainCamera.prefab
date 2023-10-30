@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachineCameraTarget: {fileID: 0}
   lookInputThreshold: 0.01
-  topClamp: 90
-  bottomClamp: -90
+  topClamp: 360
+  bottomClamp: -360
   cameraAngleOverride: 0
   playerInput: {fileID: 0}
   keyboardMouseControlScheme: KeyboardMouse
