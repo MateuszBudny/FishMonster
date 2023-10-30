@@ -6,17 +6,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 using static UnityEngine.InputSystem.InputAction;
 
 public class FishMonster : MonoBehaviour, IPlayer
 {
-    [BoxGroup("Movement")]
+    [Header("Movement")]
     [SerializeField]
     private float movementMultiplier = 1f;
-    [BoxGroup("Movement")]
     [SerializeField]
     private float speedBoostMovementMultiplier = 0.5f;
+    [Tooltip("How fast the fish turns to face movement direction")]
+    [Range(0.0f, 0.3f)]
+    public float rotationSmoothTime = 0.12f;
+
+    [Header("Other")]
     [SerializeField]
     private Collider interactionTrigger;
     [SerializeField]
@@ -43,12 +49,15 @@ public class FishMonster : MonoBehaviour, IPlayer
     private bool blockInput;
     private bool noEatingAction;
     private BoatHook hookHookedOnCurrently;
+    private Camera mainCamera;
+    private Vector3 currentRotationSpeed;
 
     private void Awake()
     {
         Rigid = GetComponent<Rigidbody>();
         envPhysicsHandler = GetComponent<TwoEnvironmentsPhysicsHandler>();
         CurrentHp = startingHp;
+        mainCamera = Camera.main;
     }
 
     private void Start()
@@ -79,7 +88,28 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     private void Move(Vector3 forceToAdd)
     {
-        Rigid.AddForce(forceToAdd * envPhysicsHandler.CurrentEnvParams.movementMultiplier, ForceMode.Acceleration);
+        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+        // if there is a move input rotate player when the player is moving
+        if(new Vector2(forceToAdd.x, forceToAdd.z) != Vector2.zero)
+        {
+            // normalise input direction
+            Vector3 forceDirection = forceToAdd.normalized;
+            Vector3 targetRotation = new Vector3(
+                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.x,
+                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y,
+                0f);
+
+            Vector3 rotation = new Vector3(
+                Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
+                Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
+                Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
+
+            // rotate to face input direction relative to camera position
+            transform.rotation = Quaternion.Euler(rotation);
+            
+            Vector3 forceToAddRelativeToCamera = mainCamera.transform.rotation * forceToAdd;
+            Rigid.AddForce(forceToAddRelativeToCamera * envPhysicsHandler.CurrentEnvParams.movementMultiplier * Time.fixedDeltaTime * 100f, ForceMode.Acceleration);
+        }
     }
 
     public void InteractableCatched(Collider interactableCollider)
@@ -182,7 +212,7 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
-    private Vector3 TransposeInputValuesToMovement(Vector2 inputValues) => new Vector3(0f, inputValues.y, inputValues.x);
+    private Vector3 TransposeInputValuesToMovement(Vector2 inputValues) => new Vector3(inputValues.x, 0f, inputValues.y);
 
     private void ResetMovement()
     {
