@@ -354,6 +354,54 @@ MonoBehaviour:
   movementMultiplier: 30
   speedBoostMovementMultiplier: 250
   rotationSmoothTime: 0.3
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 59.712044
+      outSlope: 59.712044
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0063628
+      value: 60.09198
+      inSlope: 59.712044
+      outSlope: 59.712044
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  diveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 59.712044
+      outSlope: 59.712044
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0063628
+      value: 60.09198
+      inSlope: 59.712044
+      outSlope: 59.712044
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   interactionTrigger: {fileID: 2909888356410461891}
   startingHp: 100
 --- !u!54 &838910251594565177
@@ -403,7 +451,7 @@ MonoBehaviour:
   airEnvParams:
     drag: 0.75
     angularDrag: 0.2
-    gravity: -9
+    gravity: -15
     movementMultiplier: 0.1
   autoSetupOnTriggerTagComponentOnAwake: 0
 --- !u!114 &826699858952830680
@@ -496,6 +544,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce36838b-9fd4-479b-b11a-93571528590e
     m_ActionName: ControlUnderWater/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631687556750560174}
+        m_TargetAssemblyTypeName: FishMonster, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 24733645-0bd3-4ff7-80de-896620a880aa
+    m_ActionName: ControlUnderWater/Jump[/Keyboard/shift,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631687556750560174}
+        m_TargetAssemblyTypeName: FishMonster, Assembly-CSharp
+        m_MethodName: OnDive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e2a6ee29-1970-4735-9fe2-f9e934e5e1a3
+    m_ActionName: ControlUnderWater/Dive[/Keyboard/ctrl,/XInputControllerWindows/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardMouse
   m_DefaultActionMap: ControlUnderWater

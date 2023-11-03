@@ -18,9 +18,12 @@ public class FishMonster : MonoBehaviour, IPlayer
     private float movementMultiplier = 1f;
     [SerializeField]
     private float speedBoostMovementMultiplier = 0.5f;
-    [Tooltip("How fast the fish turns to face movement direction")]
-    [Range(0.0f, 0.3f)]
-    public float rotationSmoothTime = 0.12f;
+    [SerializeField] [Tooltip("How fast the fish turns to face movement direction")] [Range(0.0f, 0.3f)]
+    private float rotationSmoothTime = 0.12f;
+    [SerializeField]
+    private AnimationCurve jumpCurve;
+    [SerializeField]
+    private AnimationCurve diveCurve;
 
     [Header("Other")]
     [SerializeField]
@@ -43,15 +46,20 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
+    public Vector3 CurrentMovement => TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
+    public float CurrentForceXAngle => !Mathf.Approximately(currentJumpAngleRawInput, 0f) ? -jumpCurve.Evaluate(currentJumpAngleRawInput) : diveCurve.Evaluate(currentDiveAngleRawInput);
+
     private TwoEnvironmentsPhysicsHandler envPhysicsHandler;
     private Vector2 currentMovementRawInput;
-    private Vector3 currentMovement;
+    private float currentJumpAngleRawInput;
+    private float currentDiveAngleRawInput;
     private bool blockInput;
     private bool noEatingActionLeft;
     private bool isMovingToPrey;
     private BoatHook hookHookedOnCurrently;
     private Camera mainCamera;
     private Vector3 currentRotationSpeed;
+    private Vector3 previousRotationOnStop;
 
     private void Awake()
     {
@@ -68,7 +76,7 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     private void FixedUpdate()
     {
-        Move(currentMovement);
+        Move(CurrentMovement);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,27 +97,42 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     private void Move(Vector3 forceToAdd)
     {
+        Vector3 targetRotation = previousRotationOnStop;
+        
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if(new Vector2(forceToAdd.x, forceToAdd.z) != Vector2.zero || isMovingToPrey)
+        if(forceToAdd != Vector3.zero || isMovingToPrey)
         {
             // normalise input direction
             Vector3 forceDirection = forceToAdd.normalized;
-            Vector3 targetRotation = new Vector3(
+            targetRotation = new Vector3(
                 Mathf.Lerp(-MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), Mathf.InverseLerp(-1f, 1f, forceDirection.z)), // the more a player character is moving straight forward/backward, the more make the x rotation the same as of camera. smoothly decrease that dependence, when a player is going more to the left/right than straight forward/backward
-                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y, // keep y rotation the same as camera when going forward, but rotate y rotation if direction of moving is changing, so a player character is always facing moving direction
+                Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y, // keep y rotation the same as camera when going forward, but rotate y rotation if direction of moving is changing, so a player character is always facing a moving direction
                 mainCamera.transform.eulerAngles.z); // keep z rotation the same as camera no matter what
 
+            targetRotation.x += CurrentForceXAngle;
+
+            Vector3 forceToAddRelativeToCamera = mainCamera.transform.rotation * forceToAdd.Rotate(new Vector3(CurrentForceXAngle, 0f, 0f));
+            Rigid.AddForce(forceToAddRelativeToCamera * envPhysicsHandler.CurrentEnvParams.movementMultiplier * Time.fixedDeltaTime * 100f, ForceMode.Acceleration);
+
+            ApplyRotation();
+            previousRotationOnStop = transform.rotation.eulerAngles;
+        }
+        else if(!Mathf.Approximately(CurrentForceXAngle, 0f))
+        {
+            targetRotation.x += CurrentForceXAngle;
+            ApplyRotation();
+        }
+
+        void ApplyRotation()
+        {
             Vector3 rotation = new Vector3(
-                Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
-                Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
-                Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
+                    Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
+                    Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
+                    Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
 
             // rotate to face input direction relative to camera position
             transform.rotation = Quaternion.Euler(rotation);
-            
-            Vector3 forceToAddRelativeToCamera = mainCamera.transform.rotation * forceToAdd;
-            Rigid.AddForce(forceToAddRelativeToCamera * envPhysicsHandler.CurrentEnvParams.movementMultiplier * Time.fixedDeltaTime * 100f, ForceMode.Acceleration);
         }
     }
 
@@ -158,7 +181,6 @@ public class FishMonster : MonoBehaviour, IPlayer
         if (context.performed && !BlockInput)
         {
             currentMovementRawInput = context.ReadValue<Vector2>();
-            currentMovement = TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
         }
         else if(context.canceled)
         {
@@ -192,6 +214,22 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
+    public void OnJump(CallbackContext context)
+    {
+        if(BlockInput)
+            return;
+
+        currentJumpAngleRawInput = context.ReadValue<float>();
+    }
+
+    public void OnDive(CallbackContext context)
+    {
+        if(BlockInput)
+            return;
+
+        currentDiveAngleRawInput = context.ReadValue<float>();
+    }
+
     public void ReceiveDamage(float damage)
     {
         CurrentHp -= damage;
@@ -220,7 +258,6 @@ public class FishMonster : MonoBehaviour, IPlayer
     private void ResetMovement()
     {
         currentMovementRawInput = Vector2.zero;
-        currentMovement = Vector3.zero;
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]

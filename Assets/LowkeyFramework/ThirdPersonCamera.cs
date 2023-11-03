@@ -88,7 +88,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if(lookInput.sqrMagnitude >= lookInputThreshold)
         {
             //Don't multiply mouse input by Time.deltaTime if mouse is used (mmultiply if controller is used)
-            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+            float deltaTimeMultiplier = IsCurrentDeviceMouse ?  1.0f : (updateType == UpdateType.Update ? Time.deltaTime : Time.fixedDeltaTime);
 
             cinemachineTargetYaw += lookInput.x * deltaTimeMultiplier;
             cinemachineTargetPitch += lookInput.y * deltaTimeMultiplier;

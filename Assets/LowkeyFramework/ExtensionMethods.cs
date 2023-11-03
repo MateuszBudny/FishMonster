@@ -27,6 +27,8 @@ public static class ExtensionMethods
         return UnityEngine.Random.Range(minMax.x, minMax.y);
     }
 
+    public static Vector3 Rotate(this Vector3 point, Vector3 angles) => point.RotateAroundPivot(Vector3.zero, angles);
+
     public static Vector3 RotateAroundPivot(this Vector3 point, Vector3 pivot, Vector3 angles)
     {
         return Quaternion.Euler(angles) * (point - pivot) + pivot;
