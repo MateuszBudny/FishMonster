@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MobileCanvasHandler : MonoBehaviour
 {
     [SerializeField]
-    private GameObject mobileUI;
+    private UnityEvent onMobileEvent;
+    [SerializeField]
+    private UnityEvent onPCEvent;
 
     private void Awake()
     {
 #if UNITY_ANDROID
         Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
-        mobileUI.SetActive(true);
+        onMobileEvent.Invoke();
 #else
-        mobileUI.SetActive(false);
+        onPCEvent.Invoke();
 #endif
     }
 }
