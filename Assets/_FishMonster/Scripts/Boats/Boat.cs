@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Linq;
 using UnityEngine;
 
 public class Boat : MonoBehaviour
@@ -13,10 +13,6 @@ public class Boat : MonoBehaviour
     private GameObject fuselageGO;
     [SerializeField]
     private BoatHook boatHook;
-    [SerializeField]
-    private float buoyancyTorqueMultiplier = 10000f;
-    [SerializeField]
-    private AnimationCurve buoyancyTorqueCurve;
     [Header("Crew")]
     [SerializeField] [MinMaxSlider(0f, 2f)]
     private Vector2 crewDroppingIntervalOnDrowning;
@@ -25,6 +21,7 @@ public class Boat : MonoBehaviour
     private ThreeEnvironmentsPhysicsHandler envPhysicsHandler;
     private ConstantForce constForce;
     private InstantiateWithForce dropCrewMember;
+    private List<Floater> floaters;
 
     private bool isFrontOfTheBoatClear = true;
     private bool feelsEndangered;
@@ -38,6 +35,7 @@ public class Boat : MonoBehaviour
         envPhysicsHandler = GetComponent<ThreeEnvironmentsPhysicsHandler>();
         constForce = GetComponent<ConstantForce>();
         dropCrewMember = GetComponent<InstantiateWithForce>();
+        floaters = GetComponentsInChildren<Floater>().ToList();
 
         Init(startingParams);
     }
@@ -45,17 +43,6 @@ public class Boat : MonoBehaviour
     private void Start()
     {
         TryToAirGlide();
-        constForce.relativeForce = new Vector3(constForce.relativeForce.x, constForce.relativeForce.y, maxSpeed);
-    }
-
-    private void FixedUpdate()
-    {
-        if(envPhysicsHandler.IsCurrentEnvironmentWater)
-        {
-            float xRotationMinus180To180 = MathUtils.RecalculateAngleToBetweenMinus180And180(transform.rotation.eulerAngles.x);
-            float isBoatYRotated = Mathf.Approximately(transform.rotation.eulerAngles.y, 0f) ? 1f : -1f;
-            constForce.torque = new Vector3(buoyancyTorqueCurve.Evaluate(Mathf.Abs(xRotationMinus180To180) / 90f) * rigid.mass * rigid.angularDrag * buoyancyTorqueMultiplier * -Mathf.Sign(xRotationMinus180To180) * isBoatYRotated, 0f, 0f);
-        }
     }
 
     public void Init(BoatSO boatSO)
@@ -85,6 +72,7 @@ public class Boat : MonoBehaviour
 
         envPhysicsHandler.ChangeEnvironmentToAir();
         AdjustEnginesStatus();
+        SetFloatersActive(false);
         ResetTorque();
     }
 
@@ -96,6 +84,7 @@ public class Boat : MonoBehaviour
 
         envPhysicsHandler.ChangeEnvironmentToWater();
         AdjustEnginesStatus();
+        SetFloatersActive(true);
     }
 
     public void FishMonsterCollidedStrongly()
@@ -118,11 +107,17 @@ public class Boat : MonoBehaviour
         constForce.relativeForce = new Vector3(constForce.relativeForce.x, constForce.relativeForce.y, 0f);
     }
 
+    public void SetFloatersActive(bool active)
+    {
+        floaters.ForEach(floater => floater.IsTurnedOn = active);
+    }
+
     public void Drown()
     {
         envPhysicsHandler.ChangeEnvironmentToDrowning();
         ResetTorque();
         TurnOffEngines();
+        SetFloatersActive(false);
         StartCoroutine(DropAllCrewMembers());
     }
 
