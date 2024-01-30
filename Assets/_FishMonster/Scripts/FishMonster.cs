@@ -46,8 +46,14 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
-    public Vector3 CurrentMovement => TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
-    public float CurrentForceXAngle => !Mathf.Approximately(currentJumpAngleRawInput, 0f) ? -jumpCurve.Evaluate(currentJumpAngleRawInput) : diveCurve.Evaluate(currentDiveAngleRawInput);
+    /// <summary>
+    /// Target planar movement in XZ axes relative to the camera.
+    /// </summary>
+    public Vector3 CurrentPlanarMovement => TransposeInputValuesToMovement(currentMovementRawInput * movementMultiplier);
+    /// <summary>
+    /// Movement force additional X axis rotation given by jumping or diving input. If player jumps and dives at the same time, then jumping is applied and diving is ignored.
+    /// </summary>
+    public float CurrentMovementAdditionalXAngle => !Mathf.Approximately(currentJumpAngleRawInput, 0f) ? -jumpCurve.Evaluate(currentJumpAngleRawInput) : diveCurve.Evaluate(currentDiveAngleRawInput);
 
     private TwoEnvironmentsPhysicsHandler envPhysicsHandler;
     private Vector2 currentMovementRawInput;
@@ -76,7 +82,7 @@ public class FishMonster : MonoBehaviour, IPlayer
 
     private void FixedUpdate()
     {
-        Move(CurrentMovement);
+        Move(CurrentPlanarMovement);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -95,41 +101,46 @@ public class FishMonster : MonoBehaviour, IPlayer
         }
     }
 
-    private void Move(Vector3 forceToAdd)
+    private void Move(Vector3 planarMovementForceToAdd)
     {
         Vector3 targetRotation = previousRotationOnStop;
         
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if(forceToAdd != Vector3.zero || isMovingToPrey)
+        if(planarMovementForceToAdd != Vector3.zero || isMovingToPrey)
         {
             // normalise input direction
-            Vector3 forceDirection = forceToAdd.normalized;
+            Vector3 forceDirection = planarMovementForceToAdd.normalized;
             targetRotation = new Vector3(
                 Mathf.Lerp(-MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), MathUtils.RecalculateAngleToBetweenMinus180And180(mainCamera.transform.eulerAngles.x), Mathf.InverseLerp(-1f, 1f, forceDirection.z)), // the more a player character is moving straight forward/backward, the more make the x rotation the same as of camera. smoothly decrease that dependence, when a player is going more to the left/right than straight forward/backward
                 Mathf.Atan2(forceDirection.x, forceDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y, // keep y rotation the same as camera when going forward, but rotate y rotation if direction of moving is changing, so a player character is always facing a moving direction
                 mainCamera.transform.eulerAngles.z); // keep z rotation the same as camera no matter what
 
-            targetRotation.x += CurrentForceXAngle;
+            targetRotation.x += CurrentMovementAdditionalXAngle;
 
-            Vector3 forceToAddRelativeToCamera = mainCamera.transform.rotation * forceToAdd.Rotate(new Vector3(CurrentForceXAngle, 0f, 0f));
-            Rigid.AddForce(forceToAddRelativeToCamera * envPhysicsHandler.CurrentEnvParams.movementMultiplier * Time.fixedDeltaTime * 100f, ForceMode.Acceleration);
+            Vector3 worldPlanarMovementForceToAddRelativeToCamera = mainCamera.transform.rotation * planarMovementForceToAdd;
+            Vector3 cameraAxisToRotateMovementForceAround = Vector3.Cross(mainCamera.transform.up, worldPlanarMovementForceToAddRelativeToCamera);
+            Vector3 finalWorldForceToAddRelativeToCamera = worldPlanarMovementForceToAddRelativeToCamera.RotateAroundAxis(cameraAxisToRotateMovementForceAround, CurrentMovementAdditionalXAngle);            ;
+            Rigid.AddForce(finalWorldForceToAddRelativeToCamera * envPhysicsHandler.CurrentEnvParams.movementMultiplier * Time.fixedDeltaTime * 100f, ForceMode.Acceleration);
 
             ApplyRotation();
             previousRotationOnStop = transform.rotation.eulerAngles;
         }
-        else if(!Mathf.Approximately(CurrentForceXAngle, 0f))
+        else if(!Mathf.Approximately(CurrentMovementAdditionalXAngle, 0f))
         {
-            targetRotation.x += CurrentForceXAngle;
+            targetRotation.x += CurrentMovementAdditionalXAngle;
             ApplyRotation();
         }
 
         void ApplyRotation()
         {
+            // debug fish rotation for velocity visualization
+            //transform.forward = Rigid.velocity.normalized;
+
             Vector3 rotation = new Vector3(
-                    Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
-                    Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
-                    Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
+                Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
+                Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
+                Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
 
             // rotate to face input direction relative to camera position
             transform.rotation = Quaternion.Euler(rotation);

@@ -34,6 +34,11 @@ public static class ExtensionMethods
         return Quaternion.Euler(angles) * (point - pivot) + pivot;
     }
 
+    public static Vector3 RotateAroundAxis(this Vector3 direction, Vector3 axis, float angle)
+    {
+        return Quaternion.AngleAxis(angle, axis) * direction;
+    }
+
     public static Vector3 RandomRange(this Vector3 minInclusive, Vector3 maxInclusive)
     {
         return new Vector3(UnityEngine.Random.Range(minInclusive.x, maxInclusive.x), UnityEngine.Random.Range(minInclusive.y, maxInclusive.y), UnityEngine.Random.Range(minInclusive.z, maxInclusive.z));
