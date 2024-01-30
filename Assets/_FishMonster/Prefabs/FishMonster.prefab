@@ -353,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementMultiplier: 30
   speedBoostMovementMultiplier: 250
-  rotationSmoothTime: 0.3
+  rotationSpeed: 600
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -445,12 +445,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterEnvParams:
     drag: 3
-    angularDrag: 1.5
+    angularDrag: 5
     gravity: -0.5
     movementMultiplier: 1
   airEnvParams:
     drag: 0.75
-    angularDrag: 0.2
+    angularDrag: 4
     gravity: -15
     movementMultiplier: 0.1
   autoSetupOnTriggerTagComponentOnAwake: 0

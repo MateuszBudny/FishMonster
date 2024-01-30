@@ -18,8 +18,8 @@ public class FishMonster : MonoBehaviour, IPlayer
     private float movementMultiplier = 1f;
     [SerializeField]
     private float speedBoostMovementMultiplier = 0.5f;
-    [SerializeField] [Tooltip("How fast the fish turns to face movement direction")] [Range(0.0f, 0.3f)]
-    private float rotationSmoothTime = 0.12f;
+    [SerializeField] [Tooltip("How fast the fish turns to face movement direction")]
+    private float rotationSpeed = 300f;
     [SerializeField]
     private AnimationCurve jumpCurve;
     [SerializeField]
@@ -134,16 +134,20 @@ public class FishMonster : MonoBehaviour, IPlayer
 
         void ApplyRotation()
         {
-            // debug fish rotation for velocity visualization
-            //transform.forward = Rigid.velocity.normalized;
+            // XY
+            Vector3 torqueYawnPitch = CalculateTorque(transform.forward, targetRotation, Vector3.forward);
+            // Z
+            Vector3 torqueRoll = CalculateTorque(transform.up, targetRotation, Vector3.up);
+            Vector3 finalTorque = torqueYawnPitch + torqueRoll;
+            Rigid.AddTorque(finalTorque * rotationSpeed);
 
-            Vector3 rotation = new Vector3(
-                Mathf.SmoothDampAngle(transform.eulerAngles.x, targetRotation.x, ref currentRotationSpeed.x, rotationSmoothTime),
-                Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation.y, ref currentRotationSpeed.y, rotationSmoothTime),
-                Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotation.z, ref currentRotationSpeed.z, rotationSmoothTime));
-
-            // rotate to face input direction relative to camera position
-            transform.rotation = Quaternion.Euler(rotation);
+            Vector3 CalculateTorque(Vector3 currentRotationDirection, Vector3 targetRotation, Vector3 axis)
+            {
+                Vector3 targetRotationDirection = Quaternion.Euler(targetRotation) * axis;
+                Vector3 crossProduct = -Vector3.Cross(targetRotationDirection, currentRotationDirection);
+                float angle = Vector3.Angle(targetRotationDirection, currentRotationDirection);
+                return angle * angle * Mathf.Deg2Rad * Mathf.Deg2Rad * crossProduct.normalized; // TODO: this square function could be extracted into AnimationCurve
+            }
         }
     }
 

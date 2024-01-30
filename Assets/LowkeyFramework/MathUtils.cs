@@ -13,6 +13,14 @@ public static class MathUtils
         return recalculatedAngle;
     }
 
+    public static Vector3 RecalculateAnglesToBetween0And360(Vector3 angles)
+    {
+        return new Vector3(
+            RecalculateAngleToBetween0And360(angles.x),
+            RecalculateAngleToBetween0And360(angles.y),
+            RecalculateAngleToBetween0And360(angles.z));
+    }
+
     public static float RecalculateAngleToBetweenMinus180And180(float angle)
     {
         float recalculatedAngle = angle % 360;
